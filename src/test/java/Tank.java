@@ -14,6 +14,8 @@ public class Tank {
     private Dir dir;
     //坦克每次移动的距离
     private static final int SPEED = 10;
+    //坦克是否是移动的
+    private boolean moving;
 
     public Tank(int x, int y, Dir dir) {
         this.x = x;
@@ -24,9 +26,17 @@ public class Tank {
     //使用画笔绘画坦克
     public void paint(Graphics graphics){
         //在窗口中填充一个矩形
-        //                  在窗口中的坐标   矩形的宽度和高度
-        graphics.fillRect(x,y,20,30);
+        //         在窗口中的坐标   矩形的宽度和高度
+        graphics.fillRect(x,y,50,50);
 
+        //移动的方法
+        move();
+    }
+
+    private void move() {
+        if(!moving){
+            return;
+        }
         switch (dir){
             case LEFT :
                 x -= SPEED;
@@ -53,5 +63,13 @@ public class Tank {
 
     public void setDir(Dir dir) {
         this.dir = dir;
+    }
+
+    public boolean isMoving() {
+        return moving;
+    }
+
+    public void setMoving(boolean moving) {
+        this.moving = moving;
     }
 }

@@ -9,7 +9,7 @@ public class MyTest {
         TankFrame tankFrame = new TankFrame();
         while (true){
             //窗口重绘的的间隔时间
-            Thread.sleep(500);
+            Thread.sleep(50);
             //调用窗口重绘接口  会自动调用paint(Graphics graphics)方法
             tankFrame.repaint();
         }

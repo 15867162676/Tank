@@ -12,6 +12,8 @@ import java.awt.event.WindowEvent;
 public class TankFrame extends Frame {
     //创建一个坦克
     Tank tank = new Tank(300,200,Dir.DOWN);
+    //创建子弹
+    Bullet bullet = new Bullet(320,200,Dir.DOWN);
 
     public TankFrame(){
         //设置窗口大小
@@ -41,8 +43,10 @@ public class TankFrame extends Frame {
     //需要重新绘制窗口的时候调用，比如窗口切换回来、窗口改变大小
     @Override
     public void paint(Graphics graphics){
-        //把画笔教给坦克类自己去画
+        //把画笔交给坦克类自己去画
         tank.paint(graphics);
+        //把画笔交给子弹类自己去画
+        bullet.paint(graphics);
     }
 
     //按键监听器内部类
@@ -79,6 +83,13 @@ public class TankFrame extends Frame {
 
         //设置坦克的方向
         private void setMainTankDir(){
+            //如果四个方向都没点击，坦克就是静止的
+            if(!bL && !bR && !bU && !bD){
+                tank.setMoving(false);
+                return;
+            }
+            
+            tank.setMoving(true);
             if(bL){
                 tank.setDir(Dir.LEFT);
             }
