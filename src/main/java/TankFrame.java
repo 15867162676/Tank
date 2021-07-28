@@ -20,6 +20,8 @@ public class TankFrame extends Frame {
     //创建一个坦克
     Tank tank = new Tank(300,200,Dir.DOWN,this);
 
+    List<Tank> tankList = new ArrayList<Tank>();
+
     //子弹集合
     List<Bullet> bulletList = new ArrayList<Bullet>();
 
@@ -87,6 +89,9 @@ public class TankFrame extends Frame {
         //把画笔交给坦克类自己去画
         tank.paint(graphics);
 
+        for(int i=0;i<tankList.size();i++){
+            tankList.get(i).paint(graphics);
+        }
 
         for(int i=0;i<bulletList.size();i++){
             //把画笔交给子弹类自己去画
