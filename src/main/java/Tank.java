@@ -10,9 +10,9 @@ public class Tank {
     private int x;
     private int y;
 
-    //设置坦克的大小
-    private static int WIDTH = 50;
-    private static int HEIGHT = 50;
+    //设置坦克的大小--获取图片大小
+    public static int WIDTH = ResourceMgr.tankU.getWidth();
+    public static int HEIGHT = ResourceMgr.tankU.getHeight();
     //持有一个游戏界面类的引用
     private TankFrame tankFrame = null;
 
@@ -80,8 +80,11 @@ public class Tank {
 
     //坦克开火的方法
     public void fire() {
+        //计算子弹的位置
+        int bX = this.x+ (WIDTH/2) - Bullet.WIDTH/2;
+        int bY = this.y+ (HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        tankFrame.bulletList.add(new Bullet(this.x+ (WIDTH/2),this.y+ (HEIGHT/2),this.dir,this.tankFrame));
+        tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.tankFrame));
     }
 
     public Dir getDir() {

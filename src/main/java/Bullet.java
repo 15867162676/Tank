@@ -8,9 +8,9 @@ import java.awt.*;
 public class Bullet {
     //设置子弹的速度
     private static final int SPEED = 5;
-    //设置子弹的大小
-    private static int WIDTH = 10;
-    private static int HEIGHT = 10;
+    //设置子弹的大小--获取图片大小
+    public static int WIDTH = ResourceMgr.bulletU.getWidth();
+    public static int HEIGHT = ResourceMgr.bulletU.getHeight();
 
     //子弹的位置
     private int x,y;
