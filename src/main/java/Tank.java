@@ -32,7 +32,23 @@ public class Tank {
 
     //使用画笔绘画坦克
     public void paint(Graphics graphics){
-        graphics.drawImage(ResourceMgr.tankD,x,y,null);
+        switch (dir){
+            case LEFT:
+                graphics.drawImage(ResourceMgr.tankL,x,y,null);
+                break;
+            case RIGHT:
+                graphics.drawImage(ResourceMgr.tankR,x,y,null);
+                break;
+            case DOWN:
+                graphics.drawImage(ResourceMgr.tankD,x,y,null);
+                break;
+            case UP:
+                graphics.drawImage(ResourceMgr.tankU,x,y,null);
+                break;
+            default:
+                graphics.drawImage(ResourceMgr.tankU,x,y,null);
+        }
+
 
         //移动的方法
         move();
@@ -65,7 +81,7 @@ public class Tank {
     //坦克开火的方法
     public void fire() {
         //子弹的位置和方向和坦克一样
-        tankFrame.bulletList.add(new Bullet(this.x,this.y,this.dir,this.tankFrame));
+        tankFrame.bulletList.add(new Bullet(this.x+ (WIDTH/2),this.y+ (HEIGHT/2),this.dir,this.tankFrame));
     }
 
     public Dir getDir() {

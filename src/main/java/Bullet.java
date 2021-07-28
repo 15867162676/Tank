@@ -30,14 +30,22 @@ public class Bullet {
 
     //用画笔画子弹
     public void paint(Graphics graphics){
-        //获取画笔原来的颜色
-        Color color = graphics.getColor();
-        //把画笔设置为红色
-        graphics.setColor(Color.RED);
-        //画出一个圆形的子弹
-        graphics.fillOval(x,y,WIDTH,HEIGHT);
-        //把画笔原来的颜色还原
-        graphics.setColor(color);
+        switch (dir){
+            case LEFT:
+                graphics.drawImage(ResourceMgr.bulletL,x,y,null);
+                break;
+            case RIGHT:
+                graphics.drawImage(ResourceMgr.bulletR,x,y,null);
+                break;
+            case DOWN:
+                graphics.drawImage(ResourceMgr.bulletD,x,y,null);
+                break;
+            case UP:
+                graphics.drawImage(ResourceMgr.bulletU,x,y,null);
+                break;
+            default:
+                graphics.drawImage(ResourceMgr.bulletU,x,y,null);
+        }
 
         move();
     }
