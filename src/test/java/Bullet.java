@@ -9,8 +9,8 @@ public class Bullet {
     //设置子弹的速度
     private static final int SPEED = 2;
     //设置子弹的大小
-    private static int WIDTH = 30;
-    private static int HEIGHT = 30;
+    private static int WIDTH = 10;
+    private static int HEIGHT = 10;
 
     //子弹的位置
     private int x,y;

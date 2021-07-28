@@ -10,10 +10,14 @@ public class Tank {
     private int x;
     private int y;
 
+    //设置坦克的大小
+    private static int WIDTH = 50;
+    private static int HEIGHT = 50;
+
     //设置坦克的初始方向
     private Dir dir;
     //坦克每次移动的距离
-    private static final int SPEED = 10;
+    private static final int SPEED = 5;
     //坦克是否是移动的
     private boolean moving;
 
@@ -25,9 +29,17 @@ public class Tank {
 
     //使用画笔绘画坦克
     public void paint(Graphics graphics){
+        //获取画笔原来的颜色
+        Color color = graphics.getColor();
+        //把画笔设置为红色
+        graphics.setColor(Color.WHITE);
+
         //在窗口中填充一个矩形
-        //         在窗口中的坐标   矩形的宽度和高度
-        graphics.fillRect(x,y,50,50);
+        //        在窗口中的坐标   矩形的宽度和高度
+        graphics.fillRect(x,y,WIDTH,HEIGHT);
+
+        //把画笔原来的颜色还原
+        graphics.setColor(color);
 
         //移动的方法
         move();

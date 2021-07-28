@@ -10,6 +10,10 @@ import java.awt.event.WindowEvent;
  * @since 2021/7/27 0027 14:49
  */
 public class TankFrame extends Frame {
+    //设置游戏界面的大小
+    private static final int GAME_WIDTH = 800;
+    private static final int GAME_HEIGHT = 600;
+
     //创建一个坦克
     Tank tank = new Tank(300,200,Dir.DOWN);
     //创建子弹
@@ -17,7 +21,7 @@ public class TankFrame extends Frame {
 
     public TankFrame(){
         //设置窗口大小
-        this.setSize(800,600);
+        this.setSize(GAME_WIDTH,GAME_HEIGHT);
         //设置窗口不能拖拽改变大小
         this.setResizable(false);
         //设置窗口标题
@@ -37,6 +41,33 @@ public class TankFrame extends Frame {
                 System.exit(0);
             }
         });
+    }
+
+    // 在内存中定义一张图片
+    Image offScreenImage = null;
+
+    /*repaint()方法会先调用update方法，
+    update方法会先把坦克等绘画到内存图片中，
+    然后再把内存的内容复制到显存
+    */
+    @Override
+    public void update(Graphics g) {
+        if(null==offScreenImage){
+            //图片大小和游戏界面大小一致
+            offScreenImage = this.createImage(GAME_WIDTH,GAME_WIDTH);
+        }
+        //拿到  图片  上的画笔
+        Graphics gOffScreen = offScreenImage.getGraphics();
+        Color color = gOffScreen.getColor();
+        gOffScreen.setColor(Color.BLACK);
+        gOffScreen.fillRect(0,0,GAME_WIDTH,GAME_WIDTH);
+        gOffScreen.setColor(color);
+
+        /*把图片上的画笔交个paint方法，
+        那么绘制坦克等内容直接绘制到了内存的图片上*/
+        paint(gOffScreen);
+        //系统一次性把图片上的内容画到游戏界面上
+        g.drawImage(offScreenImage,0,0,null);
     }
 
     //此方法会被系统自动调用
