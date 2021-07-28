@@ -13,6 +13,8 @@ public class Tank {
     //设置坦克的大小
     private static int WIDTH = 50;
     private static int HEIGHT = 50;
+    //持有一个游戏界面类的引用
+    private TankFrame tankFrame = null;
 
     //设置坦克的初始方向
     private Dir dir;
@@ -21,10 +23,11 @@ public class Tank {
     //坦克是否是移动的
     private boolean moving;
 
-    public Tank(int x, int y, Dir dir) {
+    public Tank(int x, int y, Dir dir,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.tankFrame = tankFrame;
     }
 
     //使用画笔绘画坦克
@@ -69,6 +72,12 @@ public class Tank {
         }
     }
 
+    //坦克开火的方法
+    public void fire() {
+        //子弹的位置和方向和坦克一样
+        tankFrame.bullet = new Bullet(this.x,this.y,this.dir);
+    }
+
     public Dir getDir() {
         return dir;
     }
@@ -84,4 +93,6 @@ public class Tank {
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
+
+
 }

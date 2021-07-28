@@ -15,7 +15,7 @@ public class TankFrame extends Frame {
     private static final int GAME_HEIGHT = 600;
 
     //创建一个坦克
-    Tank tank = new Tank(300,200,Dir.DOWN);
+    Tank tank = new Tank(300,200,Dir.DOWN,this);
     //创建子弹
     Bullet bullet = new Bullet(320,200,Dir.DOWN);
 
@@ -105,6 +105,9 @@ public class TankFrame extends Frame {
                     break;
                 case KeyEvent.VK_DOWN:
                     bD = true;
+                    break;
+                case KeyEvent.VK_CONTROL:
+                    tank.fire();  //点击Ctrl键 调用开火方法
                     break;
                 default:
             }
