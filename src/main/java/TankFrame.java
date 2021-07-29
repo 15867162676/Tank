@@ -105,7 +105,7 @@ public class TankFrame extends Frame {
         //子弹和坦克碰撞时，坦克消失
         for(int i=0;i<bulletList.size();i++){
             for(int j=0;j<tankList.size();j++){
-                bulletList.get(i).toHit(tankList.get(j));
+                bulletList.get(i).toHit(tankList.get(j),explode);
             }
         }
 

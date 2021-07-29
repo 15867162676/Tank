@@ -89,7 +89,7 @@ public class Bullet {
     }
 
     //子弹撞击坦克
-    public void toHit(Tank tank) {
+    public void toHit(Tank tank,Explode explode) {
         //如果是自己方的，不会打死
         if(this.group==tank.getGroup()){
             return;
@@ -99,6 +99,9 @@ public class Bullet {
         //坦克的位置
         Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
         if(rectangle1.intersects(rectangle2)){
+            explode.setX(tank.getX());
+            explode.setY(tank.getY());
+            explode.setLive(true);
             //撞击了，子弹消失，坦克消失
             tank.die();
             this.die();
