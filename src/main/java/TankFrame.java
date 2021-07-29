@@ -25,6 +25,8 @@ public class TankFrame extends Frame {
     //子弹集合
     List<Bullet> bulletList = new ArrayList<Bullet>();
 
+    Explode explode = new Explode(200,300,this);
+
     public TankFrame(){
         //设置窗口大小
         this.setSize(GAME_WIDTH,GAME_HEIGHT);
@@ -74,6 +76,7 @@ public class TankFrame extends Frame {
         paint(gOffScreen);
         //系统一次性把图片上的内容画到游戏界面上
         g.drawImage(offScreenImage,0,0,null);
+
     }
 
 
@@ -105,6 +108,9 @@ public class TankFrame extends Frame {
                 bulletList.get(i).toHit(tankList.get(j));
             }
         }
+
+        //画爆炸的图
+        explode.paint(graphics);
 
     }
 
