@@ -18,7 +18,7 @@ public class TankFrame extends Frame {
     private static final int GAME_HEIGHT = 600;
 
     //创建一个坦克
-    Tank tank = new Tank(300,200,Dir.DOWN,this);
+    Tank tank = new Tank(300,500,Dir.DOWN,Group.GOOD,this);
 
     List<Tank> tankList = new ArrayList<Tank>();
 

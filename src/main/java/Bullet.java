@@ -12,19 +12,24 @@ public class Bullet {
     public static int WIDTH = ResourceMgr.bulletU.getWidth();
     public static int HEIGHT = ResourceMgr.bulletU.getHeight();
 
+    //分组  我方  敌方
+    private Group group;
+
     //子弹的位置
     private int x,y;
     //子弹的方向
     private Dir dir;
     //子弹的存活状态
     private boolean live = true;
+
     //引用游戏界面
     private TankFrame tankFrame = null;
 
-    public Bullet(int x, int y, Dir dir,TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
@@ -85,6 +90,10 @@ public class Bullet {
 
     //子弹撞击坦克
     public void toHit(Tank tank) {
+        //如果是自己方的，不会打死
+        if(this.group==tank.getGroup()){
+            return;
+        }
         //子弹的位置
         Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
         //坦克的位置
@@ -99,5 +108,13 @@ public class Bullet {
     //子弹消失
     private void die() {
         this.live = false;
+    }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

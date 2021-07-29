@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 
 /**
  * @author TF014268
@@ -12,6 +13,12 @@ public class Tank {
     //坦克的存活状态
     private boolean live = true;
 
+    //分组  我方  敌方
+    private Group group = Group.BAD;
+
+    //敌人随机发射子弹
+    private Random random = new Random();
+
     //设置坦克的大小--获取图片大小
     public static int WIDTH = ResourceMgr.tankU.getWidth();
     public static int HEIGHT = ResourceMgr.tankU.getHeight();
@@ -21,20 +28,22 @@ public class Tank {
     //设置坦克的初始方向
     private Dir dir;
     //坦克每次移动的距离
-    private static final int SPEED = 5;
+    private static final int SPEED = 2;
     //坦克是否是移动的
-    private boolean moving;
+    private boolean moving = true;
 
-    public Tank(int x, int y, Dir dir,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
+        this.group = group;
         this.tankFrame = tankFrame;
     }
 
     //使用画笔绘画坦克
     public void paint(Graphics graphics){
         //坦克的存活状态为消失，则删除
+        //坦克删除后，当重新绘制游戏界面的时候就不再显示他了
         if(!live){
             tankFrame.tankList.remove(this);
             return;
@@ -84,6 +93,10 @@ public class Tank {
                 System.out.println("向下");
                 break;
         }
+
+        if(random.nextInt(10) > 8){
+            this.fire();
+        }
     }
 
     //坦克开火的方法
@@ -92,7 +105,12 @@ public class Tank {
         int bX = this.x+ (WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y+ (HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.tankFrame));
+        tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.group,this.tankFrame));
+    }
+
+    //坦克消失
+    public void die() {
+        this.live = false;
     }
 
     public Dir getDir() {
@@ -127,8 +145,11 @@ public class Tank {
         this.y = y;
     }
 
-    //坦克消失
-    public void die() {
-        this.live = false;
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
     }
 }

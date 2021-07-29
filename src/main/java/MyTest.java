@@ -9,7 +9,7 @@ public class MyTest {
         TankFrame tankFrame = new TankFrame();
 
         for(int i=0;i<5;i++){
-            tankFrame.tankList.add(new Tank(50 + i*50,200 +i*50,Dir.DOWN,tankFrame));
+            tankFrame.tankList.add(new Tank(30 + i*50,150 +i*50,Dir.DOWN,Group.BAD,tankFrame));
         }
 
         while (true){
