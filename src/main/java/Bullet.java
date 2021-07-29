@@ -52,8 +52,10 @@ public class Bullet {
 
     //移动的方法
     private void move() {
+        //子弹的存活状态为消失，则删除
         if(!this.live){
             tankFrame.bulletList.remove(this);
+            return;
         }
 
         switch (dir){
@@ -79,5 +81,23 @@ public class Bullet {
         if(x<0 || y<0 || x>tankFrame.getWidth() || y>tankFrame.getHeight()){
             this.live = false;
         }
+    }
+
+    //子弹撞击坦克
+    public void toHit(Tank tank) {
+        //子弹的位置
+        Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+        //坦克的位置
+        Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
+        if(rectangle1.intersects(rectangle2)){
+            //撞击了，子弹消失，坦克消失
+            tank.die();
+            this.die();
+        }
+    }
+
+    //子弹消失
+    private void die() {
+        this.live = false;
     }
 }

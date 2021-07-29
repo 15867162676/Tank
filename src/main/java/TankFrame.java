@@ -84,6 +84,7 @@ public class TankFrame extends Frame {
         Color color = graphics.getColor();
         graphics.setColor(Color.WHITE);
         graphics.drawString("子弹的数量：" + bulletList.size(),10,60);
+        graphics.drawString("敌人的数量：" + tankList.size(),10,80);
         graphics.setColor(color);
 
         //把画笔交给坦克类自己去画
@@ -96,6 +97,13 @@ public class TankFrame extends Frame {
         for(int i=0;i<bulletList.size();i++){
             //把画笔交给子弹类自己去画
             bulletList.get(i).paint(graphics);
+        }
+
+        //子弹和坦克碰撞时，坦克消失
+        for(int i=0;i<bulletList.size();i++){
+            for(int j=0;j<tankList.size();j++){
+                bulletList.get(i).toHit(tankList.get(j));
+            }
         }
 
     }

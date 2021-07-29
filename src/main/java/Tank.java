@@ -9,6 +9,8 @@ public class Tank {
     //设置坦克的尺寸
     private int x;
     private int y;
+    //坦克的存活状态
+    private boolean live = true;
 
     //设置坦克的大小--获取图片大小
     public static int WIDTH = ResourceMgr.tankU.getWidth();
@@ -32,6 +34,12 @@ public class Tank {
 
     //使用画笔绘画坦克
     public void paint(Graphics graphics){
+        //坦克的存活状态为消失，则删除
+        if(!live){
+            tankFrame.tankList.remove(this);
+            return;
+        }
+
         switch (dir){
             case LEFT:
                 graphics.drawImage(ResourceMgr.tankL,x,y,null);
@@ -103,5 +111,24 @@ public class Tank {
         this.moving = moving;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    //坦克消失
+    public void die() {
+        this.live = false;
+    }
 }
