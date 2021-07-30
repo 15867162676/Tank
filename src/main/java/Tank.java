@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 /**
@@ -20,8 +21,8 @@ public class Tank {
     private Random random = new Random();
 
     //设置坦克的大小--获取图片大小
-    public static int WIDTH = ResourceMgr.tankU.getWidth();
-    public static int HEIGHT = ResourceMgr.tankU.getHeight();
+    public static int WIDTH = ResourceMgr.goodRedTanks[0].getWidth();
+    public static int HEIGHT = ResourceMgr.goodRedTanks[0].getHeight();
     //持有一个游戏界面类的引用
     private TankFrame tankFrame = null;
 
@@ -31,6 +32,9 @@ public class Tank {
     private static final int SPEED = 2;
     //坦克是否是移动的
     private boolean moving = true;
+    //坦克的颜色
+    private Color tankColor = Color.RED;
+
 
     public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
@@ -38,6 +42,7 @@ public class Tank {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
     }
 
     //使用画笔绘画坦克
@@ -49,25 +54,83 @@ public class Tank {
             return;
         }
 
-        switch (dir){
-            case LEFT:
-                graphics.drawImage(ResourceMgr.tankL,x,y,null);
-                break;
-            case RIGHT:
-                graphics.drawImage(ResourceMgr.tankR,x,y,null);
-                break;
-            case DOWN:
-                graphics.drawImage(ResourceMgr.tankD,x,y,null);
-                break;
-            case UP:
-                graphics.drawImage(ResourceMgr.tankU,x,y,null);
-                break;
-            default:
-                graphics.drawImage(ResourceMgr.tankU,x,y,null);
-        }
+        drawTank(graphics);
 
         //移动的方法
         move();
+    }
+
+    //画坦克的方法
+    private void drawTank(Graphics graphics){
+        BufferedImage bufferedImage = null;
+        //坏坦克
+        if(this.group==Group.BAD){
+            switch (dir){
+                case UP:
+                    getBadTankImage(0,graphics);
+                    break;
+                case DOWN:
+                    getBadTankImage(1,graphics);
+                    break;
+                case LEFT:
+                    getBadTankImage(2,graphics);
+                    break;
+                case RIGHT:
+                    getBadTankImage(3,graphics);
+                    break;
+                default:
+                    getBadTankImage(0,graphics);
+            }
+            return;
+        }
+
+        switch (dir){
+            case UP:
+                getGoodTankImage(0,graphics);
+                break;
+            case DOWN:
+                getGoodTankImage(1,graphics);
+                break;
+            case LEFT:
+                getGoodTankImage(2,graphics);
+                break;
+            case RIGHT:
+                getGoodTankImage(3,graphics);
+                break;
+            default:
+                getGoodTankImage(0,graphics);
+        }
+        graphics.drawImage(bufferedImage,x,y,null);
+    }
+
+    //获取好坦克的图片（红色  绿色切换）
+    private void getGoodTankImage(int index,Graphics graphics){
+        BufferedImage bufferedImage = null;
+        if(this.tankColor== Color.RED){
+            //坦克为红色，这里设置成绿色
+            bufferedImage = ResourceMgr.goodGreenTanks[index];
+            this.tankColor = Color.GREEN;
+        }else{
+            //坦克为绿色，这里设置成红色
+            bufferedImage = ResourceMgr.goodRedTanks[index];
+            this.tankColor = Color.RED;
+        }
+        graphics.drawImage(bufferedImage,x,y,null);
+    }
+
+    //获取坏坦克的图片（红色  绿色切换）
+    private void getBadTankImage(int index,Graphics graphics){
+        BufferedImage bufferedImage = null;
+        if(this.tankColor== Color.RED){
+            //坦克为红色，这里设置成绿色
+            bufferedImage = ResourceMgr.badGreenTanks[index];
+            this.tankColor = Color.GREEN;
+        }else{
+            //坦克为绿色，这里设置成红色
+            bufferedImage = ResourceMgr.badRedTanks[index];
+            this.tankColor = Color.RED;
+        }
+        graphics.drawImage(bufferedImage,x,y,null);
     }
 
     private void move() {

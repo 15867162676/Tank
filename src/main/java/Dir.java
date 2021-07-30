@@ -4,5 +4,5 @@
  * @since 2021/7/27 0027 16:58
  */
 public enum Dir {
-    LEFT,RIGHT,UP,DOWN;
+    UP,DOWN,LEFT,RIGHT;
 }
