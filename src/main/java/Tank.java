@@ -23,6 +23,9 @@ public class Tank {
     //设置坦克的大小--获取图片大小
     public static int WIDTH = ResourceMgr.goodRedTanks[0].getWidth();
     public static int HEIGHT = ResourceMgr.goodRedTanks[0].getHeight();
+
+    Rectangle rect = new Rectangle();
+
     //持有一个游戏界面类的引用
     private TankFrame tankFrame = null;
 
@@ -43,6 +46,10 @@ public class Tank {
         this.group = group;
         this.tankFrame = tankFrame;
 
+        rect.x = x;
+        rect.y = y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     //使用画笔绘画坦克
@@ -149,6 +156,9 @@ public class Tank {
                 y += SPEED;
                 break;
         }
+
+        rect.x = this.x;
+        rect.y = this.y;
 
         if(this.group==Group.BAD){
             //敌人的坦克随机发射子弹

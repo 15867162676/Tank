@@ -23,6 +23,8 @@ public class Bullet {
     //子弹的存活状态
     private boolean live = true;
 
+    Rectangle rect = new Rectangle();
+
     //引用游戏界面
     private TankFrame tankFrame = null;
 
@@ -32,6 +34,12 @@ public class Bullet {
         this.dir = dir;
         this.group = group;
         this.tankFrame = tankFrame;
+
+        //初始化碰撞检测的rect
+        rect.x = x;
+        rect.y = y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
     }
 
     //用画笔画子弹
@@ -79,6 +87,10 @@ public class Bullet {
                 break;
         }
 
+        //移动后，改变碰撞检测的位置
+        rect.x = this.x;
+        rect.y = this.y;
+
         //如果子弹超出游戏界面，把存活状态设为false
         if(x<0 || y<0 || x>tankFrame.getWidth() || y>tankFrame.getHeight()){
             this.live = false;
@@ -96,11 +108,9 @@ public class Bullet {
         if(tank.isLive()==false){
             return;
         }
-        //子弹的位置
-        Rectangle rectangle1 = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        //坦克的位置
-        Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
-        if(rectangle1.intersects(rectangle2)){
+
+        //子弹的位置和坦克的位置比较
+        if(rect.intersects(tank.rect)){
             //撞击了，子弹消失，坦克消失
             tank.die();
             this.die();
