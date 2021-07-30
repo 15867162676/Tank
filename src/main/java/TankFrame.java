@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -14,8 +16,8 @@ import java.util.List;
  */
 public class TankFrame extends Frame {
     //设置游戏界面的大小
-    private static final int GAME_WIDTH = 800;
-    private static final int GAME_HEIGHT = 600;
+    private static final int GAME_WIDTH = 1080;
+    private static final int GAME_HEIGHT = 960;
 
     //创建一个坦克
     Tank tank = new Tank(300,500,Dir.DOWN,Group.GOOD,this);
@@ -25,7 +27,8 @@ public class TankFrame extends Frame {
     //子弹集合
     List<Bullet> bulletList = new ArrayList<Bullet>();
 
-    Explode explode = new Explode(200,300,this);
+    //爆炸的集合
+    List<Explode> explodeList = new ArrayList<Explode>();
 
     public TankFrame(){
         //设置窗口大小
@@ -88,6 +91,7 @@ public class TankFrame extends Frame {
         graphics.setColor(Color.WHITE);
         graphics.drawString("子弹的数量：" + bulletList.size(),10,60);
         graphics.drawString("敌人的数量：" + tankList.size(),10,80);
+        graphics.drawString("爆炸的数量：" + explodeList.size(),10,100);
         graphics.setColor(color);
 
         //把画笔交给坦克类自己去画
@@ -102,15 +106,17 @@ public class TankFrame extends Frame {
             bulletList.get(i).paint(graphics);
         }
 
+        for(int i=0;i<explodeList.size();i++){
+            //画爆炸的图
+            explodeList.get(i).paint(graphics);
+        }
+
         //子弹和坦克碰撞时，坦克消失
         for(int i=0;i<bulletList.size();i++){
             for(int j=0;j<tankList.size();j++){
-                bulletList.get(i).toHit(tankList.get(j),explode);
+                bulletList.get(i).toHit(tankList.get(j));
             }
         }
-
-        //画爆炸的图
-        explode.paint(graphics);
 
     }
 

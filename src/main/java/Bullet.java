@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.List;
 
 /**
  * @author TF014268
@@ -88,10 +89,15 @@ public class Bullet {
         }
     }
 
-    //子弹撞击坦克
-    public void toHit(Tank tank,Explode explode) {
+    //子弹撞击坦克  撞击返回true
+    public void toHit(Tank tank) {
         //如果是自己方的，不会打死
         if(this.group==tank.getGroup()){
+            return;
+        }
+        /*如果坦克已经死了，就不再检测碰撞。
+        多颗子弹碰撞同一个坦克会出现多个爆炸图片的bug*/
+        if(tank.isLive()==false){
             return;
         }
         //子弹的位置
@@ -99,12 +105,11 @@ public class Bullet {
         //坦克的位置
         Rectangle rectangle2 = new Rectangle(tank.getX(),tank.getY(),Tank.WIDTH,Tank.HEIGHT);
         if(rectangle1.intersects(rectangle2)){
-            explode.setX(tank.getX());
-            explode.setY(tank.getY());
-            explode.setLive(true);
             //撞击了，子弹消失，坦克消失
             tank.die();
             this.die();
+            //显示爆炸
+            this.tankFrame.explodeList.add(new Explode(this.x,this.y-Tank.HEIGHT,this.tankFrame));
         }
     }
 

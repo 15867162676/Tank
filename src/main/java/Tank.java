@@ -66,7 +66,6 @@ public class Tank {
                 graphics.drawImage(ResourceMgr.tankU,x,y,null);
         }
 
-
         //移动的方法
         move();
     }
@@ -94,7 +93,8 @@ public class Tank {
                 break;
         }
 
-        if(random.nextInt(10) > 8){
+        //敌人的坦克随机发射子弹
+        if(random.nextInt(10) > 8 && this.group==Group.BAD){
             this.fire();
         }
     }
@@ -151,5 +151,13 @@ public class Tank {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
     }
 }

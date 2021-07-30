@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.List;
 
 /**
  * @author TF014268
@@ -17,9 +18,6 @@ public class Explode {
     //播放到第几张图片了
     private int page = 0;
 
-    //存活状态
-    private boolean live = false;
-
     //引用游戏界面
     private TankFrame tankFrame = null;
 
@@ -31,23 +29,12 @@ public class Explode {
 
     //用画笔画
     public void paint(Graphics graphics){
-        //如果已经爆炸结束了，爆炸设为false
-        if(!live){
-            return;
-        }
-        graphics.drawImage(ResourceMgr.bufferedImages[page++],this.x,this.y,null);
+        graphics.drawImage(ResourceMgr.bufferedImages[page],this.x,this.y,null);
+        this.page++;
         if(page >= ResourceMgr.bufferedImages.length){
-            page = 0;
-            this.live = false;
+            //爆炸图片放完了，删除
+            this.tankFrame.explodeList.remove(this);
         }
-    }
-
-    public boolean isLive() {
-        return live;
-    }
-
-    public void setLive(boolean live) {
-        this.live = live;
     }
 
     public int getX() {
