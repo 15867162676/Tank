@@ -67,19 +67,15 @@ public class Bullet {
         switch (dir){
             case LEFT :
                 x -= SPEED;
-                System.out.println("向左");
                 break;
             case RIGHT :
                 x += SPEED;
-                System.out.println("向右");
                 break;
             case UP :
                 y -= SPEED;
-                System.out.println("向上");
                 break;
             case DOWN :
                 y += SPEED;
-                System.out.println("向下");
                 break;
         }
 

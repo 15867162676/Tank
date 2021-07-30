@@ -29,7 +29,7 @@ public class Tank {
     //设置坦克的初始方向
     private Dir dir;
     //坦克每次移动的距离
-    private static final int SPEED = 2;
+    private static final int SPEED = 5;
     //坦克是否是移动的
     private boolean moving = true;
     //坦克的颜色
@@ -53,9 +53,7 @@ public class Tank {
             tankFrame.tankList.remove(this);
             return;
         }
-
         drawTank(graphics);
-
         //移动的方法
         move();
     }
@@ -140,19 +138,15 @@ public class Tank {
         switch (dir){
             case LEFT :
                 x -= SPEED;
-                System.out.println("向左");
                 break;
             case RIGHT :
                 x += SPEED;
-                System.out.println("向右");
                 break;
             case UP :
                 y -= SPEED;
-                System.out.println("向上");
                 break;
             case DOWN :
                 y += SPEED;
-                System.out.println("向下");
                 break;
         }
 
@@ -166,6 +160,26 @@ public class Tank {
                 //敌人的坦克随机方向走
                 randomDir();
             }
+        }
+
+        //如果坦克超出游戏界面，需要掉头
+        checkTankOutFrame();
+    }
+
+    //校验坦克是否即将跑出游戏界面
+    private void checkTankOutFrame(){
+        if(x <= Tank.WIDTH+20){
+            this.x = Tank.WIDTH+20;
+        }
+        //上面有说明信息的高度
+        if(y <= Tank.HEIGHT+20){
+            this.y = Tank.HEIGHT+20;
+        }
+        if(x >= tankFrame.getWidth()-Tank.WIDTH-20){
+            this.x = tankFrame.getWidth()-Tank.WIDTH-20;
+        }
+        if(y >= tankFrame.getHeight()-Tank.HEIGHT-20){
+            this.y = tankFrame.getHeight()-Tank.HEIGHT-20;
         }
     }
 
