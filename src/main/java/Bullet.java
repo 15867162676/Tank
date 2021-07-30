@@ -108,8 +108,12 @@ public class Bullet {
             //撞击了，子弹消失，坦克消失
             tank.die();
             this.die();
+
+            //计算爆炸的位置--在坦克的中心位置上爆炸
+            int eX = tank.getX()+ (Tank.WIDTH/2) - Explode.WIDTH/2;
+            int eY = tank.getY()+ (Tank.HEIGHT/2) - Explode.HEIGHT/2;
             //显示爆炸
-            this.tankFrame.explodeList.add(new Explode(this.x,this.y-Tank.HEIGHT,this.tankFrame));
+            this.tankFrame.explodeList.add(new Explode(eX,eY,this.tankFrame));
         }
     }
 

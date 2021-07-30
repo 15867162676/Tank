@@ -93,17 +93,35 @@ public class Tank {
                 break;
         }
 
-        //敌人的坦克随机发射子弹
-        if(random.nextInt(10) > 8 && this.group==Group.BAD){
-            this.fire();
+        if(this.group==Group.BAD){
+            //敌人的坦克随机发射子弹
+            if(random.nextInt(10) > 8){
+                this.fire();
+            }
+
+            if(random.nextInt(10) > 8){
+                //敌人的坦克随机方向走
+                randomDir();
+            }
         }
+    }
+
+    //敌人的坦克随机方向走
+    private void randomDir() {
+        /*去0-4之间的整数，不包含4
+        Dir枚举中有4个值，values()返回的是一个数组，
+        这里通过随机数获取方向
+        类似：
+        Dir.values()[0]  Dir.values()[1]  Dir.values()[2]  Dir.values()[3]
+        */
+        this.dir = Dir.values()[random.nextInt(4)];
     }
 
     //坦克开火的方法
     public void fire() {
         //计算子弹的位置
-        int bX = this.x+ (WIDTH/2) - Bullet.WIDTH/2;
-        int bY = this.y+ (HEIGHT/2) - Bullet.HEIGHT/2;
+        int bX = this.x+ (Tank.WIDTH/2) - Bullet.WIDTH/2;
+        int bY = this.y+ (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
         tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.group,this.tankFrame));
     }
