@@ -39,6 +39,9 @@ public class Tank {
     //坦克的颜色
     private Color tankColor = Color.RED;
 
+    //开火的策略
+    private FireStrategy fireStrategy;
+
 
     public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
         this.x = x;
@@ -51,6 +54,12 @@ public class Tank {
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        if(this.group == Group.BAD){
+            fireStrategy = new DefaultFireStrategy();
+        }else{
+            fireStrategy = new FourDirFireStrategy();
+        }
     }
 
     //使用画笔绘画坦克
@@ -173,7 +182,7 @@ public class Tank {
         //如果坦克超出游戏界面，需要掉头
         checkTankOutFrame();
 
-        //在超出界面判断的方法后再把  撞击检测rect的坐标更新
+        //在超出界面判断的方法后再把 撞击检测rect的坐标更新
         rect.x = this.x;
         rect.y = this.y;
     }
@@ -210,13 +219,9 @@ public class Tank {
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
-    //坦克开火的方法
+    //坦克开火的方法--策略模式
     public void fire() {
-        //计算子弹的位置
-        int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
-        int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
-        //子弹的位置和方向和坦克一样
-        tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.group,this.tankFrame));
+        fireStrategy.fire(this);
     }
 
     //坦克消失
@@ -270,5 +275,13 @@ public class Tank {
 
     public void setLive(boolean live) {
         this.live = live;
+    }
+
+    public TankFrame getTankFrame() {
+        return tankFrame;
+    }
+
+    public void setTankFrame(TankFrame tankFrame) {
+        this.tankFrame = tankFrame;
     }
 }

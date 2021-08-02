@@ -41,6 +41,9 @@ public class Bullet {
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        //子弹创建后，就放入子弹集合中
+        tankFrame.bulletList.add(this);
     }
 
     //用画笔画子弹
