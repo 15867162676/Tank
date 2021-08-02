@@ -9,9 +9,9 @@ public class MyTest {
         TankFrame tankFrame = new TankFrame();
 
         //读取配置
-        int tanksCount = Integer.valueOf(PropertyMgr.get("initTankCount").toString());
-        int x = Integer.valueOf(PropertyMgr.get("badTankStartX").toString());
-        int y = Integer.valueOf(PropertyMgr.get("badTankStartY").toString());
+        int tanksCount = Integer.valueOf(PropertyMgr.getInsatace().get("initTankCount").toString());
+        int x = Integer.valueOf(PropertyMgr.getInsatace().get("badTankStartX").toString());
+        int y = Integer.valueOf(PropertyMgr.getInsatace().get("badTankStartY").toString());
 
         for(int i=0;i<tanksCount;i++){
             tankFrame.tankList.add(new Tank(x + i*50,y +i*50,Dir.DOWN,Group.BAD,tankFrame));

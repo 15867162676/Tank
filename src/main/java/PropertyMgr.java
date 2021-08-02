@@ -7,7 +7,15 @@ import java.util.Properties;
  * @since 2021/8/2 0002 9:45
  */
 public class PropertyMgr {
+    private static final PropertyMgr propertyMgr = new PropertyMgr();
+
     static Properties properties = null;
+    
+    private PropertyMgr(){}
+
+    public static PropertyMgr getInsatace(){
+        return propertyMgr;
+    }
 
     static{
         try {
@@ -20,7 +28,7 @@ public class PropertyMgr {
     }
 
     //获取配置
-    public static Object get(String key) throws Exception {
+    public Object get(String key) throws Exception {
         if(properties==null){
             return null;
         }
