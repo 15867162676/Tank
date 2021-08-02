@@ -17,6 +17,9 @@ public class MyTest {
             tankFrame.tankList.add(new Tank(x + i*50,y +i*50,Dir.DOWN,Group.BAD,tankFrame));
         }
 
+        //爆炸的声音
+//        new Thread(() -> new Audio("addio/war1.wav").loop()).start();
+
         while (true){
             //窗口重绘的的间隔时间
             Thread.sleep(50);
