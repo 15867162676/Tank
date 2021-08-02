@@ -24,6 +24,7 @@ public class Tank {
     public static int WIDTH = ResourceMgr.goodRedTanks[0].getWidth();
     public static int HEIGHT = ResourceMgr.goodRedTanks[0].getHeight();
 
+    //撞击检测的位置
     Rectangle rect = new Rectangle();
 
     //持有一个游戏界面类的引用
@@ -32,7 +33,7 @@ public class Tank {
     //设置坦克的初始方向
     private Dir dir;
     //坦克每次移动的距离
-    private static final int SPEED = 5;
+    private static final int SPEED = 3;
     //坦克是否是移动的
     private boolean moving = true;
     //坦克的颜色
@@ -157,9 +158,6 @@ public class Tank {
                 break;
         }
 
-        rect.x = this.x;
-        rect.y = this.y;
-
         if(this.group==Group.BAD){
             //敌人的坦克随机发射子弹
             if(random.nextInt(10) > 8){
@@ -174,22 +172,30 @@ public class Tank {
 
         //如果坦克超出游戏界面，需要掉头
         checkTankOutFrame();
+
+        //在超出界面判断的方法后再把  撞击检测rect的坐标更新
+        rect.x = this.x;
+        rect.y = this.y;
     }
 
     //校验坦克是否即将跑出游戏界面
     private void checkTankOutFrame(){
-        if(x <= Tank.WIDTH+20){
-            this.x = Tank.WIDTH+20;
+        int minX = Tank.WIDTH + 20;  //最小的x值
+        int minY = Tank.HEIGHT + 20;  //最小的y值
+        int maxX = tankFrame.getWidth() - Tank.WIDTH - 20;  //最大的x值
+        int maxY = tankFrame.getHeight() - Tank.HEIGHT - 20;  //最大的y值
+
+        if(x <= minX){
+            this.x = minX;
         }
-        //上面有说明信息的高度
-        if(y <= Tank.HEIGHT+20){
-            this.y = Tank.HEIGHT+20;
+        if(y <= minY){
+            this.y = minY;
         }
-        if(x >= tankFrame.getWidth()-Tank.WIDTH-20){
-            this.x = tankFrame.getWidth()-Tank.WIDTH-20;
+        if(x >= maxX){
+            this.x = maxX;
         }
-        if(y >= tankFrame.getHeight()-Tank.HEIGHT-20){
-            this.y = tankFrame.getHeight()-Tank.HEIGHT-20;
+        if(y >= maxY){
+            this.y = maxY;
         }
     }
 
@@ -207,8 +213,8 @@ public class Tank {
     //坦克开火的方法
     public void fire() {
         //计算子弹的位置
-        int bX = this.x+ (Tank.WIDTH/2) - Bullet.WIDTH/2;
-        int bY = this.y+ (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
+        int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
+        int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
         tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.group,this.tankFrame));
     }

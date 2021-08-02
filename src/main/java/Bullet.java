@@ -23,6 +23,7 @@ public class Bullet {
     //子弹的存活状态
     private boolean live = true;
 
+    //撞击检测的位置
     Rectangle rect = new Rectangle();
 
     //引用游戏界面
@@ -116,8 +117,9 @@ public class Bullet {
             this.die();
 
             //计算爆炸的位置--在坦克的中心位置上爆炸
-            int eX = tank.getX()+ (Tank.WIDTH/2) - Explode.WIDTH/2;
-            int eY = tank.getY()+ (Tank.HEIGHT/2) - Explode.HEIGHT/2;
+            //坦克的位置坐标 + 坦克位置的一半 - 爆炸图片的一半
+            int eX = tank.getX() + (Tank.WIDTH/2) - Explode.WIDTH/2;
+            int eY = tank.getY() + (Tank.HEIGHT/2) - Explode.HEIGHT/2;
             //显示爆炸
             this.tankFrame.explodeList.add(new Explode(eX,eY,this.tankFrame));
         }
