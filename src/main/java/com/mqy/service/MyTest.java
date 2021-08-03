@@ -1,5 +1,7 @@
 package com.mqy.service;
 
+import com.mqy.abstractFactory.defaultType.Tank;
+import com.mqy.abstractFactory.rectType.RectTank;
 import com.mqy.emuns.Dir;
 import com.mqy.emuns.Group;
 import com.mqy.util.PropertyMgr;

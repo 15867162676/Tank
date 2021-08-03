@@ -1,17 +1,22 @@
-package com.mqy.service;
+package com.mqy.abstractFactory.rectType;
 
+import com.mqy.abstractFactory.base.BaseBullet;
+import com.mqy.abstractFactory.base.BaseTank;
+import com.mqy.abstractFactory.defaultType.Explode;
+import com.mqy.abstractFactory.defaultType.Tank;
 import com.mqy.emuns.Dir;
 import com.mqy.emuns.Group;
+import com.mqy.service.TankFrame;
 import com.mqy.util.ResourceMgr;
 
 import java.awt.*;
 
 /**
  * @author TF014268
- * @description 子弹类
- * @since 2021/7/27 0027 20:32
+ * @description 方形的子弹
+ * @since 2021/8/3 0003 14:08
  */
-public class Bullet {
+public class RectBullet extends BaseBullet {
     //设置子弹的速度
     private static final int SPEED = 5;
     //设置子弹的大小--获取图片大小
@@ -34,7 +39,7 @@ public class Bullet {
     //引用游戏界面
     private TankFrame tankFrame = null;
 
-    public Bullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
+    public RectBullet(int x, int y, Dir dir, Group group, TankFrame tankFrame) {
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -52,24 +57,9 @@ public class Bullet {
     }
 
     //用画笔画子弹
+    @Override
     public void paint(Graphics graphics){
-        switch (dir){
-            case LEFT:
-                graphics.drawImage(ResourceMgr.bulletL,x,y,null);
-                break;
-            case RIGHT:
-                graphics.drawImage(ResourceMgr.bulletR,x,y,null);
-                break;
-            case DOWN:
-                graphics.drawImage(ResourceMgr.bulletD,x,y,null);
-                break;
-            case UP:
-                graphics.drawImage(ResourceMgr.bulletU,x,y,null);
-                break;
-            default:
-                graphics.drawImage(ResourceMgr.bulletU,x,y,null);
-        }
-
+        graphics.drawImage(ResourceMgr.rectBullet,x,y,null);
         move();
     }
 
@@ -107,7 +97,9 @@ public class Bullet {
     }
 
     //子弹撞击坦克  撞击返回true
-    public void toHit(Tank tank) {
+    @Override
+    public void toHit(BaseTank baseTank) {
+        RectTank tank = (RectTank) baseTank;
         //如果是自己方的，不会打死
         if(this.group==tank.getGroup()){
             return;
@@ -129,7 +121,7 @@ public class Bullet {
             int eX = tank.getX() + (Tank.WIDTH/2) - Explode.WIDTH/2;
             int eY = tank.getY() + (Tank.HEIGHT/2) - Explode.HEIGHT/2;
             //显示爆炸
-            this.tankFrame.explodeList.add(new Explode(eX,eY,this.tankFrame));
+            this.tankFrame.explodeList.add(tankFrame.gameFactory.createExplode(eX,eY,this.tankFrame));
         }
     }
 

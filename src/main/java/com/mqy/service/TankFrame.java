@@ -1,5 +1,14 @@
 package com.mqy.service;
 
+import com.mqy.abstractFactory.base.BaseBullet;
+import com.mqy.abstractFactory.base.BaseExplode;
+import com.mqy.abstractFactory.base.BaseTank;
+import com.mqy.abstractFactory.base.GameFactory;
+import com.mqy.abstractFactory.defaultType.Bullet;
+import com.mqy.abstractFactory.defaultType.DefaultFactory;
+import com.mqy.abstractFactory.defaultType.Tank;
+import com.mqy.abstractFactory.rectType.RectFactory;
+import com.mqy.abstractFactory.rectType.RectTank;
 import com.mqy.emuns.Dir;
 import com.mqy.emuns.Group;
 
@@ -24,13 +33,15 @@ public class TankFrame extends Frame {
     //创建一个坦克
     Tank tank = new Tank(300,500, Dir.DOWN, Group.GOOD,this);
 
-    List<Tank> tankList = new ArrayList<Tank>();
+    public List<BaseTank> tankList = new ArrayList<>();
 
     //子弹集合
-    List<Bullet> bulletList = new ArrayList<Bullet>();
+    public List<BaseBullet> bulletList = new ArrayList<>();
 
-    //爆炸的集合
-    List<Explode> explodeList = new ArrayList<Explode>();
+    //爆炸的集合--抽象的爆炸类
+    public List<BaseExplode> explodeList = new ArrayList<>();
+
+    public GameFactory gameFactory = new DefaultFactory();
 
     public TankFrame(){
         //设置窗口大小

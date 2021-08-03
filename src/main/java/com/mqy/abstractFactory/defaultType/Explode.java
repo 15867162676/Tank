@@ -1,5 +1,7 @@
-package com.mqy.service;
+package com.mqy.abstractFactory.defaultType;
 
+import com.mqy.abstractFactory.base.BaseExplode;
+import com.mqy.service.TankFrame;
 import com.mqy.util.ResourceMgr;
 
 import java.awt.*;
@@ -9,7 +11,7 @@ import java.awt.*;
  * @description 爆炸类
  * @since 2021/7/27 0027 20:32
  */
-public class Explode {
+public class Explode extends BaseExplode {
 
     //获取图片大小
     public static int WIDTH = ResourceMgr.bufferedImages[0].getWidth();
@@ -31,6 +33,7 @@ public class Explode {
     }
 
     //用画笔画
+    @Override
     public void paint(Graphics graphics){
         graphics.drawImage(ResourceMgr.bufferedImages[page],this.x,this.y,null);
         this.page++;

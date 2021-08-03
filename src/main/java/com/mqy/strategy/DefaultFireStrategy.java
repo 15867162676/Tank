@@ -1,7 +1,10 @@
 package com.mqy.strategy;
 
-import com.mqy.service.Bullet;
-import com.mqy.service.Tank;
+import com.mqy.abstractFactory.base.BaseTank;
+import com.mqy.abstractFactory.defaultType.Bullet;
+import com.mqy.abstractFactory.defaultType.Tank;
+import com.mqy.abstractFactory.rectType.RectBullet;
+import com.mqy.abstractFactory.rectType.RectTank;
 
 /**
  * @author TF014268
@@ -10,12 +13,23 @@ import com.mqy.service.Tank;
  */
 public class DefaultFireStrategy implements FireStrategy {
     @Override
-    public void fire(Tank tank) {
-        //计算子弹的位置
-        int bX = tank.getX() + (Tank.WIDTH/2) - Bullet.WIDTH/2;
-        int bY = tank.getY() + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
-        //子弹的位置和方向和坦克一样
-        new Bullet(bX,bY,tank.getDir(),tank.getGroup(),tank.getTankFrame());
+    public void fire(BaseTank baseTank) {
+        if(baseTank instanceof Tank){
+            Tank tank = (Tank) baseTank;
+            //计算子弹的位置
+            int bX = tank.getX() + (Tank.WIDTH/2) - Bullet.WIDTH/2;
+            int bY = tank.getY() + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
+            //子弹的位置和方向和坦克一样
+            new RectBullet(bX,bY,tank.getDir(),tank.getGroup(),tank.getTankFrame());
+        }else{
+            RectTank tank = (RectTank) baseTank;
+            //计算子弹的位置
+            int bX = tank.getX() + (Tank.WIDTH/2) - Bullet.WIDTH/2;
+            int bY = tank.getY() + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
+            //子弹的位置和方向和坦克一样
+            new RectBullet(bX,bY,tank.getDir(),tank.getGroup(),tank.getTankFrame());
+        }
+
 
 //        if(tank.getGroup() == Group.GOOD){
 //            new Thread(() -> new Audio("addio/war1.wav").loop()).start();

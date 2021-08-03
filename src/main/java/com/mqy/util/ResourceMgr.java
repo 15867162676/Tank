@@ -24,8 +24,27 @@ public class ResourceMgr {
     //坦克爆炸的图片
     public static BufferedImage[] bufferedImages = new BufferedImage[16];
 
+    //抽象工厂--坦克样式---------------开始
+    public static BufferedImage[] rectTanks = new BufferedImage[4];
+    public static BufferedImage rectBullet;
+    public static BufferedImage[] rectEx = new BufferedImage[11];
+    //抽象工厂--坦克样式---------------结束
+
     static{
         try {
+            //抽象工厂--坦克样式---------------开始
+            rectTanks[0] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankU.gif"));
+            rectTanks[1] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankD.gif"));
+            rectTanks[2] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankL.gif"));
+            rectTanks[3] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/tankR.gif"));
+
+            rectBullet = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
+            for(int i=0;i<rectEx.length;i++){
+                rectEx[i] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/" + (i) + ".gif"));
+            }
+            //抽象工厂--坦克样式---------------结束
+
+
             //好坦克的方向
             goodRedTanks[0] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
             goodRedTanks[1] = ImageUtil.rotateImage(goodRedTanks[0], 180);

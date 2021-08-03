@@ -1,6 +1,7 @@
 package com.mqy.strategy;
 
-import com.mqy.service.Tank;
+import com.mqy.abstractFactory.base.BaseTank;
+import com.mqy.abstractFactory.defaultType.Tank;
 
 /**
  * @author TF014268
@@ -8,5 +9,5 @@ import com.mqy.service.Tank;
  * @since 2021/8/2 0002 15:14
  */
 public interface FireStrategy {
-    void fire(Tank tank);
+    void fire(BaseTank tank);
 }

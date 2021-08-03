@@ -1,7 +1,9 @@
-package com.mqy.service;
+package com.mqy.abstractFactory.defaultType;
 
+import com.mqy.abstractFactory.base.BaseTank;
 import com.mqy.emuns.Dir;
 import com.mqy.emuns.Group;
+import com.mqy.service.TankFrame;
 import com.mqy.strategy.DefaultFireStrategy;
 import com.mqy.strategy.FireStrategy;
 import com.mqy.strategy.FourDirFireStrategy;
@@ -16,7 +18,7 @@ import java.util.Random;
  * @description 坦克类
  * @since 2021/7/27 0027 19:00
  */
-public class Tank {
+public class Tank extends BaseTank {
     //设置坦克的尺寸
     private int x;
     private int y;
@@ -72,6 +74,7 @@ public class Tank {
     }
 
     //使用画笔绘画坦克
+    @Override
     public void paint(Graphics graphics){
         //坦克的存活状态为消失，则删除
         //坦克删除后，当重新绘制游戏界面的时候就不再显示他了
@@ -227,9 +230,13 @@ public class Tank {
         this.dir = Dir.values()[random.nextInt(4)];
     }
 
-    //坦克开火的方法--策略模式
+    //坦克开火的方法
     public void fire() {
-        fireStrategy.fire(this);
+        //计算子弹的位置
+        int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
+        int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
+        //子弹的位置和方向和坦克一样
+        tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.group,this.tankFrame));
     }
 
     //坦克消失
