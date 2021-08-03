@@ -1,3 +1,5 @@
+package com.mqy;
+
 /**
  * @author TF014268
  * @description 方向枚举类

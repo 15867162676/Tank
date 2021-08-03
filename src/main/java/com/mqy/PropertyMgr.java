@@ -1,3 +1,5 @@
+package com.mqy;
+
 import java.io.IOException;
 import java.util.Properties;
 
@@ -13,21 +15,21 @@ public class PropertyMgr {
         try {
             //先初始化
             properties = new Properties();
-            properties.load(PropertyMgr.class.getResourceAsStream("config/application.properties"));
+            properties.load(PropertyMgr.class.getResourceAsStream("/config/application.properties"));
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
     }
 
     //获取配置
-    public static Object get(String key) throws Exception {
+    public static Object get(String key){
         if(properties==null){
             return null;
         }
 
-        if(null==properties.get(key)){
-            throw new Exception("缺少配置" + key);
-        }
+//        if(null==properties.get(key)){
+//            throw new Exception("缺少配置" + key);
+//        }
         return properties.get(key);
     }
 }

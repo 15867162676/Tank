@@ -1,5 +1,9 @@
+package com.mqy;
+
+import com.mqy.ResourceMgr;
+import com.mqy.TankFrame;
+
 import java.awt.*;
-import java.util.List;
 
 /**
  * @author TF014268
@@ -19,12 +23,12 @@ public class Explode {
     private int page = 0;
 
     //引用游戏界面
-    private TankFrame tankFrame = null;
+    private GameModel gameModel = null;
 
-    public Explode(int x, int y, TankFrame tankFrame) {
+    public Explode(int x, int y, GameModel gameModel) {
         this.x = x;
         this.y = y;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
     }
 
     //用画笔画
@@ -33,7 +37,7 @@ public class Explode {
         this.page++;
         if(page >= ResourceMgr.bufferedImages.length){
             //爆炸图片放完了，删除
-            this.tankFrame.explodeList.remove(this);
+            this.gameModel.explodeList.remove(this);
         }
     }
 

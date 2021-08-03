@@ -1,3 +1,5 @@
+package com.mqy;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -28,7 +30,7 @@ public class Tank {
     Rectangle rect = new Rectangle();
 
     //持有一个游戏界面类的引用
-    private TankFrame tankFrame = null;
+    private GameModel gameModel = null;
 
     //设置坦克的初始方向
     private Dir dir;
@@ -40,12 +42,12 @@ public class Tank {
     private Color tankColor = Color.RED;
 
 
-    public Tank(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         rect.x = x;
         rect.y = y;
@@ -58,7 +60,7 @@ public class Tank {
         //坦克的存活状态为消失，则删除
         //坦克删除后，当重新绘制游戏界面的时候就不再显示他了
         if(!live){
-            tankFrame.tankList.remove(this);
+            gameModel.tankList.remove(this);
             return;
         }
         drawTank(graphics);
@@ -182,8 +184,8 @@ public class Tank {
     private void checkTankOutFrame(){
         int minX = Tank.WIDTH + 20;  //最小的x值
         int minY = Tank.HEIGHT + 20;  //最小的y值
-        int maxX = tankFrame.getWidth() - Tank.WIDTH - 20;  //最大的x值
-        int maxY = tankFrame.getHeight() - Tank.HEIGHT - 20;  //最大的y值
+        int maxX = TankFrame.getGameWidth() - Tank.WIDTH - 20;  //最大的x值
+        int maxY = TankFrame.getGameHeight() - Tank.HEIGHT - 20;  //最大的y值
 
         if(x <= minX){
             this.x = minX;
@@ -205,7 +207,6 @@ public class Tank {
         Dir枚举中有4个值，values()返回的是一个数组，
         这里通过随机数获取方向
         类似：
-        Dir.values()[0]  Dir.values()[1]  Dir.values()[2]  Dir.values()[3]
         */
         this.dir = Dir.values()[random.nextInt(4)];
     }
@@ -216,7 +217,7 @@ public class Tank {
         int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        tankFrame.bulletList.add(new Bullet(bX,bY,this.dir,this.group,this.tankFrame));
+        gameModel.bulletList.add(new Bullet(bX,bY,this.dir,this.group,gameModel));
     }
 
     //坦克消失

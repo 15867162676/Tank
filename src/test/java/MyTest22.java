@@ -13,10 +13,6 @@ public class MyTest22 {
     public static void main(String[] args) {
         BufferedImage read = null;
         try {
-//            read = ImageIO.read(new File("E:\\GitLabMavenWorkSpace\\Tank\\src\\images\\bulletD.gif"));
-//            System.out.println(read.toString());
-//            System.out.println("------------");
-
             read = ImageIO.read(MyTest22.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
         } catch (IOException ioException) {
             ioException.printStackTrace();

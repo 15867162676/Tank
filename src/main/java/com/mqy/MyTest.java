@@ -1,3 +1,7 @@
+package com.mqy;
+
+import com.mqy.PropertyMgr;
+
 /**
  * @author TF014268
  * @description test
@@ -8,14 +12,6 @@ public class MyTest {
     public static void main(String[] args) throws Exception {
         TankFrame tankFrame = new TankFrame();
 
-        //读取配置
-        int tanksCount = Integer.valueOf(PropertyMgr.get("initTankCount").toString());
-        int x = Integer.valueOf(PropertyMgr.get("badTankStartX").toString());
-        int y = Integer.valueOf(PropertyMgr.get("badTankStartY").toString());
-
-        for(int i=0;i<tanksCount;i++){
-            tankFrame.tankList.add(new Tank(x + i*50,y +i*50,Dir.DOWN,Group.BAD,tankFrame));
-        }
 
         //爆炸的声音
 //        new Thread(() -> new Audio("addio/war1.wav").loop()).start();

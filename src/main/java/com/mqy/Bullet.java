@@ -1,5 +1,6 @@
+package com.mqy;
+
 import java.awt.*;
-import java.util.List;
 
 /**
  * @author TF014268
@@ -27,14 +28,14 @@ public class Bullet {
     Rectangle rect = new Rectangle();
 
     //引用游戏界面
-    private TankFrame tankFrame = null;
+    private GameModel gameModel = null;
 
-    public Bullet(int x, int y, Dir dir,Group group,TankFrame tankFrame) {
+    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.tankFrame = tankFrame;
+        this.gameModel = gameModel;
 
         //初始化碰撞检测的rect
         rect.x = x;
@@ -69,7 +70,7 @@ public class Bullet {
     private void move() {
         //子弹的存活状态为消失，则删除
         if(!this.live){
-            tankFrame.bulletList.remove(this);
+            gameModel.bulletList.remove(this);
             return;
         }
 
@@ -93,7 +94,7 @@ public class Bullet {
         rect.y = this.y;
 
         //如果子弹超出游戏界面，把存活状态设为false
-        if(x<0 || y<0 || x>tankFrame.getWidth() || y>tankFrame.getHeight()){
+        if(x<0 || y<0 || x> TankFrame.getGameWidth() || y> TankFrame.getGameHeight()){
             this.live = false;
         }
     }
@@ -121,7 +122,7 @@ public class Bullet {
             int eX = tank.getX() + (Tank.WIDTH/2) - Explode.WIDTH/2;
             int eY = tank.getY() + (Tank.HEIGHT/2) - Explode.HEIGHT/2;
             //显示爆炸
-            this.tankFrame.explodeList.add(new Explode(eX,eY,this.tankFrame));
+            this.gameModel.explodeList.add(new Explode(eX,eY,this.gameModel));
         }
     }
 

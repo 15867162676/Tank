@@ -1,3 +1,4 @@
+package com.mqy;
 
 import java.awt.*;
 import java.awt.event.KeyAdapter;
@@ -19,16 +20,7 @@ public class TankFrame extends Frame {
     private static final int GAME_WIDTH = 1080;
     private static final int GAME_HEIGHT = 960;
 
-    //创建一个坦克
-    Tank tank = new Tank(300,500,Dir.DOWN,Group.GOOD,this);
-
-    List<Tank> tankList = new ArrayList<Tank>();
-
-    //子弹集合
-    List<Bullet> bulletList = new ArrayList<Bullet>();
-
-    //爆炸的集合
-    List<Explode> explodeList = new ArrayList<Explode>();
+    private GameModel gameModel = new GameModel();
 
     public TankFrame(){
         //设置窗口大小
@@ -87,37 +79,7 @@ public class TankFrame extends Frame {
     //需要重新绘制窗口的时候调用，比如窗口切换回来、窗口改变大小
     @Override
     public void paint(Graphics graphics){
-        Color color = graphics.getColor();
-        graphics.setColor(Color.WHITE);
-        graphics.drawString("子弹的数量：" + bulletList.size(),10,60);
-        graphics.drawString("敌人的数量：" + tankList.size(),10,80);
-        graphics.drawString("爆炸的数量：" + explodeList.size(),10,100);
-        graphics.setColor(color);
-
-        //把画笔交给坦克类自己去画
-        tank.paint(graphics);
-
-        for(int i=0;i<tankList.size();i++){
-            tankList.get(i).paint(graphics);
-        }
-
-        for(int i=0;i<bulletList.size();i++){
-            //把画笔交给子弹类自己去画
-            bulletList.get(i).paint(graphics);
-        }
-
-        for(int i=0;i<explodeList.size();i++){
-            //画爆炸的图
-            explodeList.get(i).paint(graphics);
-        }
-
-        //子弹和坦克碰撞时，坦克消失
-        for(int i=0;i<bulletList.size();i++){
-            for(int j=0;j<tankList.size();j++){
-                bulletList.get(i).toHit(tankList.get(j));
-            }
-        }
-
+        gameModel.paint(graphics);
     }
 
     //按键监听器内部类
@@ -147,7 +109,7 @@ public class TankFrame extends Frame {
                     bD = true;
                     break;
                 case KeyEvent.VK_CONTROL:
-                    tank.fire();  //点击Ctrl键 调用开火方法
+                    gameModel.tank.fire();  //点击Ctrl键 调用开火方法
                     break;
                 default:
             }
@@ -159,22 +121,22 @@ public class TankFrame extends Frame {
         private void setMainTankDir(){
             //如果四个方向都没点击，坦克就是静止的
             if(!bL && !bR && !bU && !bD){
-                tank.setMoving(false);
+                gameModel.tank.setMoving(false);
                 return;
             }
-            
-            tank.setMoving(true);
+
+            gameModel.tank.setMoving(true);
             if(bL){
-                tank.setDir(Dir.LEFT);
+                gameModel.tank.setDir(Dir.LEFT);
             }
             if(bR){
-                tank.setDir(Dir.RIGHT);
+                gameModel.tank.setDir(Dir.RIGHT);
             }
             if(bU){
-                tank.setDir(Dir.UP);
+                gameModel.tank.setDir(Dir.UP);
             }
             if(bD){
-                tank.setDir(Dir.DOWN);
+                gameModel.tank.setDir(Dir.DOWN);
             }
         }
 
