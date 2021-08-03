@@ -228,12 +228,13 @@ public class RectTank extends BaseTank {
     }
 
     //坦克开火的方法
+    @Override
     public void fire() {
         //计算子弹的位置
         int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        tankFrame.bulletList.add(new RectBullet(bX,bY,this.dir,this.group,this.tankFrame));
+        tankFrame.bulletList.add(tankFrame.gameFactory.createBullet(bX,bY,this.dir,this.group,this.tankFrame));
     }
 
     //坦克消失
@@ -245,6 +246,7 @@ public class RectTank extends BaseTank {
         return dir;
     }
 
+    @Override
     public void setDir(Dir dir) {
         this.dir = dir;
     }

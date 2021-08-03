@@ -22,7 +22,7 @@ public class MyTest {
         int y = Integer.valueOf(PropertyMgr.getInsatace().get("badTankStartY").toString());
 
         for(int i=0;i<tanksCount;i++){
-            tankFrame.tankList.add(new Tank(x + i*50,y +i*50, Dir.DOWN, Group.BAD,tankFrame));
+            tankFrame.tankList.add(tankFrame.gameFactory.createTank(x + i*50,y +i*50, Dir.DOWN, Group.BAD,tankFrame));
         }
 
         //爆炸的声音
