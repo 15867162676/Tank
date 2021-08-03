@@ -31,7 +31,7 @@ public class TankFrame extends Frame {
     private static final int GAME_HEIGHT = 960;
 
     //创建一个坦克
-    BaseTank tank = new RectTank(300,500, Dir.DOWN, Group.GOOD,this);
+    BaseTank tank = new Tank(300,500, Dir.DOWN, Group.GOOD,this);
 
     public List<BaseTank> tankList = new ArrayList<>();
 
@@ -41,7 +41,7 @@ public class TankFrame extends Frame {
     //爆炸的集合--抽象的爆炸类
     public List<BaseExplode> explodeList = new ArrayList<>();
 
-    public GameFactory gameFactory = new RectFactory();
+    public GameFactory gameFactory = new DefaultFactory();
 
     public TankFrame(){
         //设置窗口大小
