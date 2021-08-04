@@ -1,5 +1,9 @@
 package com.mqy;
 
+import com.mqy.cor.BulletTankCollider;
+import com.mqy.cor.Collider;
+import com.mqy.cor.TankTankCollider;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,13 +18,11 @@ public class GameModel {
     //创建一个坦克
     Tank tank = new Tank(300,500, Dir.DOWN, Group.GOOD,this);
 
-    List<Tank> tankList = new ArrayList<Tank>();
+    private List<GameGoods> goodsList = new ArrayList<>();
 
-    //子弹集合
-    List<Bullet> bulletList = new ArrayList<Bullet>();
-
-    //爆炸的集合
-    List<Explode> explodeList = new ArrayList<Explode>();
+    //撞击比较器
+    Collider collider = new BulletTankCollider();
+    Collider collider2 = new TankTankCollider();
 
     public GameModel(){
         //读取配置
@@ -29,40 +31,47 @@ public class GameModel {
         int y = Integer.valueOf(PropertyMgr.get("badTankStartY").toString());
 
         for(int i=0;i<tanksCount;i++){
-            tankList.add(new Tank(x + i*50,y +i*50, Dir.DOWN, Group.BAD,this));
+            add(new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD,this));
         }
+
+        add(tank);
+    }
+
+    //添加物品
+    public void add(GameGoods gameGoods){
+        goodsList.add(gameGoods);
+    }
+
+    //删除物品
+    public void remove(GameGoods gameGoods){
+        goodsList.remove(gameGoods);
     }
 
     //绘画方法
     public void paint(Graphics graphics){
         Color color = graphics.getColor();
         graphics.setColor(Color.WHITE);
-        graphics.drawString("子弹的数量：" + bulletList.size(),10,60);
-        graphics.drawString("敌人的数量：" + tankList.size(),10,80);
-        graphics.drawString("爆炸的数量：" + explodeList.size(),10,100);
+//        graphics.drawString("子弹的数量：" + bulletList.size(),10,60);
+//        graphics.drawString("敌人的数量：" + tankList.size(),10,80);
+//        graphics.drawString("爆炸的数量：" + explodeList.size(),10,100);
         graphics.setColor(color);
 
         //把画笔交给坦克类自己去画
         tank.paint(graphics);
 
-        for(int i=0;i<tankList.size();i++){
-            tankList.get(i).paint(graphics);
-        }
-
-        for(int i=0;i<bulletList.size();i++){
-            //把画笔交给子弹类自己去画
-            bulletList.get(i).paint(graphics);
-        }
-
-        for(int i=0;i<explodeList.size();i++){
-            //画爆炸的图
-            explodeList.get(i).paint(graphics);
+        //画出所有的物品（不同物品调用自己的实现）
+        for(int i=0;i<goodsList.size();i++){
+            goodsList.get(i).paint(graphics);
         }
 
         //子弹和坦克碰撞时，坦克消失
-        for(int i=0;i<bulletList.size();i++){
-            for(int j=0;j<tankList.size();j++){
-                bulletList.get(i).toHit(tankList.get(j));
+        for(int i=0;i<goodsList.size();i++){
+            for(int j=i+1;j<goodsList.size();j++){
+                GameGoods g1 = goodsList.get(i);
+                GameGoods g2 = goodsList.get(j);
+                //检测撞击
+                collider.collide(g1,g2);
+                collider2.collide(g1,g2);
             }
         }
 

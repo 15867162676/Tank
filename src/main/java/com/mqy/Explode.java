@@ -10,7 +10,7 @@ import java.awt.*;
  * @description 爆炸类
  * @since 2021/7/27 0027 20:32
  */
-public class Explode {
+public class Explode extends GameGoods{
 
     //获取图片大小
     public static int WIDTH = ResourceMgr.bufferedImages[0].getWidth();
@@ -32,12 +32,13 @@ public class Explode {
     }
 
     //用画笔画
+    @Override
     public void paint(Graphics graphics){
         graphics.drawImage(ResourceMgr.bufferedImages[page],this.x,this.y,null);
         this.page++;
         if(page >= ResourceMgr.bufferedImages.length){
             //爆炸图片放完了，删除
-            this.gameModel.explodeList.remove(this);
+            this.gameModel.remove(this);
         }
     }
 

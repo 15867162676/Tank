@@ -1,5 +1,7 @@
 package com.mqy;
 
+import com.mqy.cor.Collider;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -9,10 +11,14 @@ import java.util.Random;
  * @description 坦克类
  * @since 2021/7/27 0027 19:00
  */
-public class Tank {
-    //设置坦克的尺寸
+public class Tank extends GameGoods{
+    //设置坦克的位置
     private int x;
     private int y;
+    //设置坦克的原来的位置
+    private int oldX;
+    private int oldY;
+
     //坦克的存活状态
     private boolean live = true;
 
@@ -27,7 +33,7 @@ public class Tank {
     public static int HEIGHT = ResourceMgr.goodRedTanks[0].getHeight();
 
     //撞击检测的位置
-    Rectangle rect = new Rectangle();
+    public Rectangle rect = new Rectangle();
 
     //持有一个游戏界面类的引用
     private GameModel gameModel = null;
@@ -45,6 +51,8 @@ public class Tank {
     public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
         this.x = x;
         this.y = y;
+        this.oldX = x;
+        this.oldY = y;
         this.dir = dir;
         this.group = group;
         this.gameModel = gameModel;
@@ -56,11 +64,12 @@ public class Tank {
     }
 
     //使用画笔绘画坦克
+    @Override
     public void paint(Graphics graphics){
         //坦克的存活状态为消失，则删除
         //坦克删除后，当重新绘制游戏界面的时候就不再显示他了
         if(!live){
-            gameModel.tankList.remove(this);
+            gameModel.remove(this);
             return;
         }
         drawTank(graphics);
@@ -142,9 +151,14 @@ public class Tank {
     }
 
     private void move() {
+        //记录位置
+        this.oldX = this.x;
+        this.oldY = this.y;
+
         if(!moving){
             return;
         }
+
         switch (dir){
             case LEFT :
                 x -= SPEED;
@@ -178,6 +192,7 @@ public class Tank {
         //在超出界面判断的方法后再把  撞击检测rect的坐标更新
         rect.x = this.x;
         rect.y = this.y;
+
     }
 
     //校验坦克是否即将跑出游戏界面
@@ -217,7 +232,17 @@ public class Tank {
         int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        gameModel.bulletList.add(new Bullet(bX,bY,this.dir,this.group,gameModel));
+        gameModel.add(new Bullet(bX,bY,this.dir,this.group,gameModel));
+    }
+
+    public void stop(){
+        //如果是坏坦克，换个方向随机走
+        if(this.group==Group.BAD){
+            randomDir();
+        }else{
+            this.x = this.oldX;
+            this.y = this.oldY;
+        }
     }
 
     //坦克消失
@@ -272,4 +297,5 @@ public class Tank {
     public void setLive(boolean live) {
         this.live = live;
     }
+
 }
