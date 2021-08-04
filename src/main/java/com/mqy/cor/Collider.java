@@ -10,6 +10,6 @@ import com.mqy.GameGoods;
 public interface Collider {
 
     //物体两两比较
-    public void collide(GameGoods g1, GameGoods g2);
+    boolean collide(GameGoods g1, GameGoods g2);
 
 }

@@ -9,34 +9,30 @@ import com.mqy.*;
  */
 public class BulletTankCollider implements Collider{
     @Override
-    public void collide(GameGoods g1, GameGoods g2) {
+    public boolean collide(GameGoods g1, GameGoods g2) {
         if(g1 instanceof Tank && g2 instanceof Bullet){
             Tank tank = (Tank)g1;
             Bullet bullet = (Bullet)g2;
-            if(tank.getGroup()== Group.GOOD){
-                return;
-            }
             //撞击方法
-            toHit(bullet,tank);
+            return toHit(bullet,tank);
         }else if(g1 instanceof  Bullet && g2 instanceof Tank){
-            collide(g2, g1);
+            return collide(g2, g1);
         }else{
-            System.out.println("无效撞击");
-            return;
+            return false;
         }
     }
 
 
     //子弹撞击坦克  撞击返回true
-    private void toHit(Bullet bullet,Tank tank) {
+    private boolean toHit(Bullet bullet,Tank tank) {
         //如果是自己方的，不会打死
         if(bullet.getGroup()==tank.getGroup()){
-            return;
+            return false;
         }
         /*如果坦克已经死了，就不再检测碰撞。
         多颗子弹碰撞同一个坦克会出现多个爆炸图片的bug*/
         if(tank.isLive()==false){
-            return;
+            return true;
         }
 
         //子弹的位置和坦克的位置比较
@@ -51,6 +47,8 @@ public class BulletTankCollider implements Collider{
             int eY = tank.getY() + (Tank.HEIGHT/2) - Explode.HEIGHT/2;
             //显示爆炸
             bullet.getGameModel().add(new Explode(eX,eY,bullet.getGameModel()));
+            return true;
         }
+        return false;
     }
 }

@@ -12,25 +12,25 @@ import com.mqy.Tank;
  */
 public class TankTankCollider implements Collider{
     @Override
-    public void collide(GameGoods g1, GameGoods g2) {
+    public boolean collide(GameGoods g1, GameGoods g2) {
         if(g1 instanceof Tank && g2 instanceof Tank){
             Tank tank1 = (Tank)g1;
             Tank tank2 = (Tank)g2;
             //撞击方法
-            toHit(tank1,tank2);
-        } else{
-            System.out.println("无效撞击");
-            return;
+            return toHit(tank1,tank2);
         }
+        return false;
     }
 
 
     //子弹撞击坦克  撞击返回true
-    private void toHit(Tank tank1,Tank tank2) {
+    private boolean toHit(Tank tank1,Tank tank2) {
         if(tank1.rect.intersects(tank2.rect)){
             tank1.stop();
             tank2.stop();
         }
+
+        return false;
 
     }
 }

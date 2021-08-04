@@ -2,6 +2,7 @@ package com.mqy;
 
 import com.mqy.cor.BulletTankCollider;
 import com.mqy.cor.Collider;
+import com.mqy.cor.ColliderChain;
 import com.mqy.cor.TankTankCollider;
 
 import java.awt.*;
@@ -20,9 +21,8 @@ public class GameModel {
 
     private List<GameGoods> goodsList = new ArrayList<>();
 
-    //撞击比较器
-    Collider collider = new BulletTankCollider();
-    Collider collider2 = new TankTankCollider();
+    //撞击责任链
+    ColliderChain colliderChain = new ColliderChain();
 
     public GameModel(){
         //读取配置
@@ -34,7 +34,7 @@ public class GameModel {
             add(new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD,this));
         }
 
-        add(tank);
+//        add(tank);
     }
 
     //添加物品
@@ -70,8 +70,7 @@ public class GameModel {
                 GameGoods g1 = goodsList.get(i);
                 GameGoods g2 = goodsList.get(j);
                 //检测撞击
-                collider.collide(g1,g2);
-                collider2.collide(g1,g2);
+                colliderChain.collide(g1,g2);
             }
         }
 
