@@ -24,8 +24,14 @@ public class ResourceMgr {
     //坦克爆炸的图片
     static BufferedImage[] bufferedImages = new BufferedImage[16];
 
+    //墙的图片
+    static BufferedImage wallImage;
+
     static{
         try {
+            //墙
+            wallImage = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/square0.jpg"));
+
             //好坦克的方向
             goodRedTanks[0] = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/GoodTank1.png"));
             goodRedTanks[1] = ImageUtil.rotateImage(goodRedTanks[0], 180);

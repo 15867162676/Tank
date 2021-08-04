@@ -28,7 +28,7 @@ public class Tank extends GameGoods{
     //敌人随机发射子弹
     private Random random = new Random();
 
-    //设置坦克的大小--获取图片大小
+    //获取坦克图片大小
     public static int WIDTH = ResourceMgr.goodRedTanks[0].getWidth();
     public static int HEIGHT = ResourceMgr.goodRedTanks[0].getHeight();
 

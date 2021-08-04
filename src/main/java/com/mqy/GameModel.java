@@ -34,6 +34,18 @@ public class GameModel {
             add(new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD,this));
         }
 
+        //初始化墙体
+        for(int i=0;i<60;i++){
+            //横着的x轴最上面的
+            add(new Wall(20*i,20,this));
+            //竖着的y轴左面的
+            add(new Wall(0,20*i,this));
+            //竖着的y轴右面的
+            add(new Wall(TankFrame.getGameWidth()-Wall.WIDTH,20*i,this));
+            //横着的x轴下面的
+            add(new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT,this));
+        }
+
 //        add(tank);
     }
 

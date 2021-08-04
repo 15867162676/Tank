@@ -17,6 +17,7 @@ public class ColliderChain implements Collider{
     public ColliderChain(){
         add(new TankTankCollider());
         add(new BulletTankCollider());
+        add(new WallBulletColider());
     }
 
     //添加方法
