@@ -1,11 +1,6 @@
 package com.mqy;
 
-import com.mqy.cor.BulletTankCollider;
-import com.mqy.cor.Collider;
 import com.mqy.cor.ColliderChain;
-import com.mqy.cor.TankTankCollider;
-import org.omg.PortableInterceptor.INACTIVE;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;

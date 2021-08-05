@@ -29,8 +29,6 @@ public class Tank extends GameGoods implements TankDecorator {
     //敌人随机发射子弹
     private Random random = new Random();
 
-    private TankDecorator tankDecorator;
-
     //获取坦克图片大小
     public static int WIDTH = ResourceMgr.goodRedTanks[0].getWidth();
     public static int HEIGHT = ResourceMgr.goodRedTanks[0].getHeight();
@@ -47,6 +45,7 @@ public class Tank extends GameGoods implements TankDecorator {
     //坦克的颜色
     private Color tankColor = Color.RED;
 
+    private TankDecorator tankDecorator;
 
     public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
@@ -76,6 +75,8 @@ public class Tank extends GameGoods implements TankDecorator {
             GameModel.getInstance().remove(this);
             return;
         }
+        //调用装饰器绘画
+        tankDecorator.paint(graphics);
         drawTank(graphics);
         //移动的方法
         move();
@@ -122,7 +123,6 @@ public class Tank extends GameGoods implements TankDecorator {
                 getGoodTankImage(0,graphics);
         }
         graphics.drawImage(bufferedImage,x,y,null);
-        tankDecorator.paint(graphics);
     }
 
     //获取好坦克的图片（红色  绿色切换）
