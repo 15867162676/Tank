@@ -1,7 +1,5 @@
 package com.mqy.cor;
 
-import com.mqy.Bullet;
-import com.mqy.Explode;
 import com.mqy.GameGoods;
 import com.mqy.Tank;
 

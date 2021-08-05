@@ -13,12 +13,13 @@ public class WallBulletColider implements Collider{
         if(g1 instanceof Wall && g2 instanceof Bullet){
             Wall wall = (Wall)g1;
             Bullet bullet = (Bullet) g2;
-            return toHit(bullet, wall);
+            toHit(bullet, wall);
         }else if(g1 instanceof Bullet && g2 instanceof Wall){
-            return collide(g2, g1);
+            collide(g2, g1);
         }else{
-            return false;
+
         }
+        return false;
     }
 
     //子弹撞击墙体  撞击返回true
@@ -35,7 +36,7 @@ public class WallBulletColider implements Collider{
             bullet.die();
 
             //在子弹的位置显示爆炸
-            bullet.getGameModel().add(new Explode(wall.getX(),wall.getY(),bullet.getGameModel()));
+//            bullet.getGameModel().add(new Explode(wall.getX(),wall.getY(),bullet.getGameModel()));
             return true;
         }
         return false;

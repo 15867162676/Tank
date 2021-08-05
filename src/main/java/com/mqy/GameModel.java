@@ -46,6 +46,13 @@ public class GameModel {
             add(new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT,this));
         }
 
+        for(int i=0;i<10;i++){
+            add(new Wall(200+ 20*(i+1),300,this));
+            add(new Wall(200+ 20*(i+1),320,this));
+        }
+
+
+
 //        add(tank);
     }
 

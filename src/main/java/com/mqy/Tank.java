@@ -237,12 +237,12 @@ public class Tank extends GameGoods{
 
     public void stop(){
         //如果是坏坦克，换个方向随机走
-        if(this.group==Group.BAD){
-            randomDir();
-        }else{
+//        if(this.group==Group.BAD){
+//            randomDir();
+//        }else{
             this.x = this.oldX;
             this.y = this.oldY;
-        }
+//        }
     }
 
     //坦克消失
