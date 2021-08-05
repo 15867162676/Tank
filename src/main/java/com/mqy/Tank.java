@@ -1,6 +1,7 @@
 package com.mqy;
 
-import com.mqy.cor.Collider;
+import com.mqy.decorator.TailTankDecorator;
+import com.mqy.decorator.TankDecorator;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,7 +12,7 @@ import java.util.Random;
  * @description 坦克类
  * @since 2021/7/27 0027 19:00
  */
-public class Tank extends GameGoods{
+public class Tank extends GameGoods implements TankDecorator {
     //设置坦克的位置
     private int x;
     private int y;
@@ -27,6 +28,8 @@ public class Tank extends GameGoods{
 
     //敌人随机发射子弹
     private Random random = new Random();
+
+    private TankDecorator tankDecorator;
 
     //获取坦克图片大小
     public static int WIDTH = ResourceMgr.goodRedTanks[0].getWidth();
@@ -57,6 +60,8 @@ public class Tank extends GameGoods{
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        tankDecorator = new TailTankDecorator(this);
 
         //把游戏物品添加到游戏模板中
         GameModel.getInstance().add(this);
@@ -117,6 +122,7 @@ public class Tank extends GameGoods{
                 getGoodTankImage(0,graphics);
         }
         graphics.drawImage(bufferedImage,x,y,null);
+        tankDecorator.paint(graphics);
     }
 
     //获取好坦克的图片（红色  绿色切换）

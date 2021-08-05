@@ -11,24 +11,28 @@ import java.io.IOException;
  */
 public class ResourceMgr {
     //四个方向的好坦克图片--红色--按上下左右的顺序放
-    static BufferedImage[] goodRedTanks = new BufferedImage[4];
+    public static BufferedImage[] goodRedTanks = new BufferedImage[4];
     //四个方向的好坦克图片--绿色
-    static BufferedImage[] goodGreenTanks = new BufferedImage[4];
+    public static BufferedImage[] goodGreenTanks = new BufferedImage[4];
 
     //四个方向的坏坦克图片--红色--按上下左右的顺序放
-    static BufferedImage[] badRedTanks = new BufferedImage[4];
+    public static BufferedImage[] badRedTanks = new BufferedImage[4];
     //四个方向的坏坦克图片--绿色
-    static BufferedImage[] badGreenTanks = new BufferedImage[4];
+    public static BufferedImage[] badGreenTanks = new BufferedImage[4];
     //四个方向的子弹图片
-    static BufferedImage bulletL,bulletR,bulletU,bulletD;
+    public static BufferedImage bulletL,bulletR,bulletU,bulletD;
     //坦克爆炸的图片
-    static BufferedImage[] bufferedImages = new BufferedImage[16];
+    public static BufferedImage[] bufferedImages = new BufferedImage[16];
 
     //墙的图片
-    static BufferedImage wallImage;
+    public static BufferedImage wallImage;
+
+    //五星的爆炸
+    public static BufferedImage fiveImage;
 
     static{
         try {
+            fiveImage = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/5.gif"));
             //墙
             wallImage = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/square0.jpg"));
 
