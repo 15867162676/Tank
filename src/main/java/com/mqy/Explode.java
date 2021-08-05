@@ -40,6 +40,12 @@ public class Explode extends GameGoods{
         }
     }
 
+    @Override
+    public Dir getDir() {
+        return dir;
+    }
+
+    @Override
     public int getX() {
         return x;
     }
@@ -48,6 +54,7 @@ public class Explode extends GameGoods{
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }

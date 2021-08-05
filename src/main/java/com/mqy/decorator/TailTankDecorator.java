@@ -1,8 +1,8 @@
 package com.mqy.decorator;
 
+import com.mqy.GameGoods;
 import com.mqy.ResourceMgr;
 import com.mqy.Tank;
-
 import java.awt.*;
 
 /**
@@ -11,10 +11,10 @@ import java.awt.*;
  * @since 2021/8/5 0005 11:02
  */
 public class TailTankDecorator implements TankDecorator{
-    private Tank tank;
+    private GameGoods g;
 
-    public TailTankDecorator(Tank tank){
-        this.tank = tank;
+    public TailTankDecorator(GameGoods g){
+        this.g = g;
     }
 
     @Override
@@ -24,22 +24,25 @@ public class TailTankDecorator implements TankDecorator{
         int imageW = ResourceMgr.fiveImage.getWidth();
         int imageH = ResourceMgr.fiveImage.getHeight();
 
-        switch (tank.getDir()){
+        int gx = g.getX();
+        int gy = g.getY();
+
+        switch (g.getDir()){
             case UP:
-                x = tank.getX()+Tank.WIDTH/2-imageW/2;
-                y = tank.getY()+Tank.HEIGHT;
+                x = gx+Tank.WIDTH/2-imageW/2;
+                y = gy+Tank.HEIGHT;
                 break;
             case LEFT:
-                x = tank.getX()+Tank.WIDTH;
-                y = tank.getY()+Tank.HEIGHT/2-imageH/2;
+                x = gx+Tank.WIDTH;
+                y = gy+Tank.HEIGHT/2-imageH/2;
                 break;
             case RIGHT:
-                x = tank.getX()-imageW;
-                y = tank.getY()+Tank.HEIGHT/2-imageH/2;
+                x = gx-imageW;
+                y = gy+Tank.HEIGHT/2-imageH/2;
                 break;
             case DOWN:
-                x = tank.getX() + Tank.WIDTH/2 - imageW/2;
-                y = tank.getY() - imageH;
+                x = gx + Tank.WIDTH/2 - imageW/2;
+                y = gy - imageH;
                 break;
         }
         graphics.drawImage(ResourceMgr.fiveImage,x,y,null);

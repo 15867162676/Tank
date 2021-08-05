@@ -13,9 +13,12 @@ import java.util.Random;
  * @since 2021/7/27 0027 19:00
  */
 public class Tank extends GameGoods implements TankDecorator {
-    //设置坦克的位置
-    private int x;
-    private int y;
+//    //设置坦克的位置
+//    private int x;
+//    private int y;
+//    //设置坦克的初始方向
+//    private Dir dir;
+
     //设置坦克的原来的位置
     private int oldX;
     private int oldY;
@@ -36,8 +39,7 @@ public class Tank extends GameGoods implements TankDecorator {
     //撞击检测的位置
     public Rectangle rect = new Rectangle();
 
-    //设置坦克的初始方向
-    private Dir dir;
+
     //坦克每次移动的距离
     private static final int SPEED = 3;
     //坦克是否是移动的
@@ -76,7 +78,7 @@ public class Tank extends GameGoods implements TankDecorator {
             return;
         }
         //调用装饰器绘画
-        tankDecorator.paint(graphics);
+//        tankDecorator.paint(graphics);
         drawTank(graphics);
         //移动的方法
         move();
@@ -256,6 +258,7 @@ public class Tank extends GameGoods implements TankDecorator {
         this.live = false;
     }
 
+    @Override
     public Dir getDir() {
         return dir;
     }
@@ -272,6 +275,7 @@ public class Tank extends GameGoods implements TankDecorator {
         this.moving = moving;
     }
 
+    @Override
     public int getX() {
         return x;
     }
@@ -280,6 +284,7 @@ public class Tank extends GameGoods implements TankDecorator {
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }

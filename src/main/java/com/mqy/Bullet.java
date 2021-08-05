@@ -1,6 +1,7 @@
 package com.mqy;
 
 import com.mqy.cor.Collider;
+import com.mqy.decorator.TailTankDecorator;
 
 import java.awt.*;
 
@@ -19,10 +20,10 @@ public class Bullet extends GameGoods{
     //分组  我方  敌方
     private Group group;
 
-    //子弹的位置
-    private int x,y;
-    //子弹的方向
-    private Dir dir;
+//    //子弹的位置
+//    private int x,y;
+//    //子弹的方向
+//    private Dir dir;
     //子弹的存活状态
     private boolean live = true;
 
@@ -65,6 +66,11 @@ public class Bullet extends GameGoods{
         }
 
         move();
+    }
+
+    @Override
+    public Dir getDir() {
+        return dir;
     }
 
     //移动的方法
@@ -114,6 +120,7 @@ public class Bullet extends GameGoods{
     }
 
 
+    @Override
     public int getX() {
         return x;
     }
@@ -122,6 +129,7 @@ public class Bullet extends GameGoods{
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }

@@ -10,9 +10,9 @@ import java.util.List;
  * @since 2021/8/4 0004 16:43
  */
 public class Wall extends GameGoods{
-    //设置坦克的位置
-    private int x;
-    private int y;
+//    //设置坦克的位置
+//    private int x;
+//    private int y;
 
     //获取墙体图片大小
     public static int WIDTH = ResourceMgr.wallImage.getWidth();
@@ -39,6 +39,12 @@ public class Wall extends GameGoods{
         graphics.drawImage(ResourceMgr.wallImage,x,y,null);
     }
 
+    @Override
+    public Dir getDir() {
+        return dir;
+    }
+
+    @Override
     public int getX() {
         return x;
     }
@@ -47,6 +53,7 @@ public class Wall extends GameGoods{
         this.x = x;
     }
 
+    @Override
     public int getY() {
         return y;
     }
