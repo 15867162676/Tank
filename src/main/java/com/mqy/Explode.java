@@ -22,13 +22,9 @@ public class Explode extends GameGoods{
     //播放到第几张图片了
     private int page = 0;
 
-    //引用游戏界面
-    private GameModel gameModel = null;
-
-    public Explode(int x, int y, GameModel gameModel) {
+    public Explode(int x, int y) {
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
     }
 
     //用画笔画
@@ -38,7 +34,7 @@ public class Explode extends GameGoods{
         this.page++;
         if(page >= ResourceMgr.bufferedImages.length){
             //爆炸图片放完了，删除
-            this.gameModel.remove(this);
+            GameModel.getInstance().remove(this);
         }
     }
 

@@ -27,7 +27,7 @@ public class TankWallCollider implements Collider{
     //坦克撞墙
     private boolean toHit(Tank tank, Wall wall) {
         if(tank.rect.intersects(wall.rect)){
-            tank.stop();
+            tank.back();
             return true;
         }
         return false;

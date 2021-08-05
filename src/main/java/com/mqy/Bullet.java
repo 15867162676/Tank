@@ -16,9 +16,6 @@ public class Bullet extends GameGoods{
     public static int WIDTH = ResourceMgr.bulletU.getWidth();
     public static int HEIGHT = ResourceMgr.bulletU.getHeight();
 
-    //下一个处理器引用
-    private Collider toHitHandler;
-
     //分组  我方  敌方
     private Group group;
 
@@ -32,15 +29,11 @@ public class Bullet extends GameGoods{
     //撞击检测的位置
     public Rectangle rect = new Rectangle();
 
-    //引用游戏界面
-    private GameModel gameModel = null;
-
-    public Bullet(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Bullet(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         //初始化碰撞检测的rect
         rect.x = x;
@@ -76,7 +69,7 @@ public class Bullet extends GameGoods{
     private void move() {
         //子弹的存活状态为消失，则删除
         if(!this.live){
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
             return;
         }
 
@@ -118,14 +111,6 @@ public class Bullet extends GameGoods{
         this.group = group;
     }
 
-
-    public GameModel getGameModel() {
-        return gameModel;
-    }
-
-    public void setGameModel(GameModel gameModel) {
-        this.gameModel = gameModel;
-    }
 
     public int getX() {
         return x;

@@ -18,18 +18,12 @@ public class Wall extends GameGoods{
     public static int WIDTH = ResourceMgr.wallImage.getWidth();
     public static int HEIGHT = ResourceMgr.wallImage.getHeight();
 
-    List<GameGoods> gameGoodsList = new ArrayList<>();
-
-    //持有一个游戏界面类的引用
-    private GameModel gameModel = null;
-
     //撞击检测的位置
     public Rectangle rect = new Rectangle();
 
-    public Wall(int x, int y, GameModel gameModel){
+    public Wall(int x, int y){
         this.x = x;
         this.y = y;
-        this.gameModel = gameModel;
 
         rect.x = x;
         rect.y = y;

@@ -20,7 +20,7 @@ public class TankFrame extends Frame {
     private static final int GAME_WIDTH = 1080;
     private static final int GAME_HEIGHT = 960;
 
-    private GameModel gameModel = new GameModel();
+    private GameModel gameModel = GameModel.getInstance();
 
     public TankFrame(){
         //设置窗口大小

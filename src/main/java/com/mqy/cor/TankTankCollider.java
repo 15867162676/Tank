@@ -24,8 +24,8 @@ public class TankTankCollider implements Collider{
     //子弹撞击坦克  撞击返回true
     private boolean toHit(Tank tank1,Tank tank2) {
         if(tank1.rect.intersects(tank2.rect)){
-            tank1.stop();
-            tank2.stop();
+            tank1.back();
+            tank2.back();
         }
 
         return false;

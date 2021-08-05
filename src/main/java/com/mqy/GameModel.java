@@ -16,39 +16,50 @@ import java.util.List;
  */
 public class GameModel {
 
+    private static final GameModel INSTANCE = new GameModel();
+
     //创建一个坦克
-    Tank tank = new Tank(300,500, Dir.DOWN, Group.GOOD,this);
+    Tank tank = new Tank(300,500, Dir.DOWN, Group.GOOD);
 
     private List<GameGoods> goodsList = new ArrayList<>();
 
     //撞击责任链
     ColliderChain colliderChain = new ColliderChain();
 
-    public GameModel(){
+    //单例模式
+    public static GameModel getInstance(){
+        return INSTANCE;
+    }
+
+    private GameModel(){
         //读取配置
         int tanksCount = Integer.valueOf(PropertyMgr.get("initTankCount").toString());
         int x = Integer.valueOf(PropertyMgr.get("badTankStartX").toString());
         int y = Integer.valueOf(PropertyMgr.get("badTankStartY").toString());
 
         for(int i=0;i<tanksCount;i++){
-            add(new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD,this));
+            add(new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD));
         }
 
         //初始化墙体
         for(int i=0;i<60;i++){
             //横着的x轴最上面的
-            add(new Wall(20*i,20,this));
+            add(new Wall(20*i,20));
             //竖着的y轴左面的
-            add(new Wall(0,20*i,this));
+            add(new Wall(0,20*i));
             //竖着的y轴右面的
-            add(new Wall(TankFrame.getGameWidth()-Wall.WIDTH,20*i,this));
+            add(new Wall(TankFrame.getGameWidth()-Wall.WIDTH,20*i));
             //横着的x轴下面的
-            add(new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT,this));
+            add(new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT));
         }
 
         for(int i=0;i<10;i++){
-            add(new Wall(200+ 20*(i+1),300,this));
-            add(new Wall(200+ 20*(i+1),320,this));
+            add(new Wall(200+ 20*(i+1),300));
+            add(new Wall(200+ 20*(i+1),320));
+
+            add(new Wall(500,300+ 20*(i+1)));
+            add(new Wall(520,300+ 20*(i+1)));
+            add(new Wall(540,300+ 20*(i+1)));
         }
 
 

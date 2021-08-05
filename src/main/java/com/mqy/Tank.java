@@ -35,9 +35,6 @@ public class Tank extends GameGoods{
     //撞击检测的位置
     public Rectangle rect = new Rectangle();
 
-    //持有一个游戏界面类的引用
-    private GameModel gameModel = null;
-
     //设置坦克的初始方向
     private Dir dir;
     //坦克每次移动的距离
@@ -48,14 +45,13 @@ public class Tank extends GameGoods{
     private Color tankColor = Color.RED;
 
 
-    public Tank(int x, int y, Dir dir, Group group, GameModel gameModel) {
+    public Tank(int x, int y, Dir dir, Group group) {
         this.x = x;
         this.y = y;
         this.oldX = x;
         this.oldY = y;
         this.dir = dir;
         this.group = group;
-        this.gameModel = gameModel;
 
         rect.x = x;
         rect.y = y;
@@ -69,7 +65,7 @@ public class Tank extends GameGoods{
         //坦克的存活状态为消失，则删除
         //坦克删除后，当重新绘制游戏界面的时候就不再显示他了
         if(!live){
-            gameModel.remove(this);
+            GameModel.getInstance().remove(this);
             return;
         }
         drawTank(graphics);
@@ -232,17 +228,13 @@ public class Tank extends GameGoods{
         int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        gameModel.add(new Bullet(bX,bY,this.dir,this.group,gameModel));
+        GameModel.getInstance().add(new Bullet(bX,bY,this.dir,this.group));
     }
 
-    public void stop(){
-        //如果是坏坦克，换个方向随机走
-//        if(this.group==Group.BAD){
-//            randomDir();
-//        }else{
-            this.x = this.oldX;
-            this.y = this.oldY;
-//        }
+    public void back(){
+        //回到上次的位置
+        this.x = this.oldX;
+        this.y = this.oldY;
     }
 
     //坦克消失
