@@ -23,12 +23,18 @@ public class WallBulletColider implements Collider{
 
     //子弹撞击墙体  撞击返回true
     private boolean toHit(Bullet bullet, Wall wall) {
+                /*如果坦克已经死了，就不再检测碰撞。
+        多颗子弹碰撞同一个坦克会出现多个爆炸图片的bug*/
+        if(bullet.isLive()==false){
+            return true;
+        }
+
         //子弹的位置和墙体的位置比较
         if(bullet.rect.intersects(wall.rect)){
             //撞击了，子弹消失，墙体不变
             bullet.die();
 
-            //在子弹的显示爆炸
+            //在子弹的位置显示爆炸
             bullet.getGameModel().add(new Explode(wall.getX(),wall.getY(),bullet.getGameModel()));
             return true;
         }

@@ -142,4 +142,12 @@ public class Bullet extends GameGoods{
     public void setY(int y) {
         this.y = y;
     }
+
+    public boolean isLive() {
+        return live;
+    }
+
+    public void setLive(boolean live) {
+        this.live = live;
+    }
 }
