@@ -57,6 +57,9 @@ public class Tank extends GameGoods{
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+
+        //把游戏物品添加到游戏模板中
+        GameModel.getInstance().add(this);
     }
 
     //使用画笔绘画坦克
@@ -224,11 +227,16 @@ public class Tank extends GameGoods{
 
     //坦克开火的方法
     public void fire() {
+        //如果坦克已经死了，不能发射子弹
+        if(this.live==false){
+            return;
+        }
+
         //计算子弹的位置
         int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        GameModel.getInstance().add(new Bullet(bX,bY,this.dir,this.group));
+        new Bullet(bX,bY,this.dir,this.group);
     }
 
     public void back(){

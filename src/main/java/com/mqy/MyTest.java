@@ -12,7 +12,6 @@ public class MyTest {
     public static void main(String[] args) throws Exception {
         TankFrame tankFrame = new TankFrame();
 
-
         //爆炸的声音
 //        new Thread(() -> new Audio("addio/war1.wav").loop()).start();
 

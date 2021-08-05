@@ -25,6 +25,8 @@ public class Explode extends GameGoods{
     public Explode(int x, int y) {
         this.x = x;
         this.y = y;
+        //把游戏物品添加到游戏模板中
+        GameModel.getInstance().add(this);
     }
 
     //用画笔画

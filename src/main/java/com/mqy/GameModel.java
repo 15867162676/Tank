@@ -4,6 +4,7 @@ import com.mqy.cor.BulletTankCollider;
 import com.mqy.cor.Collider;
 import com.mqy.cor.ColliderChain;
 import com.mqy.cor.TankTankCollider;
+import org.omg.PortableInterceptor.INACTIVE;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -18,8 +19,13 @@ public class GameModel {
 
     private static final GameModel INSTANCE = new GameModel();
 
+    static{
+        //调用初始化方法
+        INSTANCE.init();
+    }
+
     //创建一个坦克
-    Tank tank = new Tank(300,500, Dir.DOWN, Group.GOOD);
+    Tank tank;
 
     private List<GameGoods> goodsList = new ArrayList<>();
 
@@ -32,39 +38,40 @@ public class GameModel {
     }
 
     private GameModel(){
+    }
+
+    //初始化方法
+    private void init(){
+        tank = new Tank(300,500, Dir.DOWN, Group.GOOD);
         //读取配置
         int tanksCount = Integer.valueOf(PropertyMgr.get("initTankCount").toString());
         int x = Integer.valueOf(PropertyMgr.get("badTankStartX").toString());
         int y = Integer.valueOf(PropertyMgr.get("badTankStartY").toString());
 
         for(int i=0;i<tanksCount;i++){
-            add(new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD));
+            new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD);
         }
 
         //初始化墙体
         for(int i=0;i<60;i++){
             //横着的x轴最上面的
-            add(new Wall(20*i,20));
+            new Wall(20*i,20);
             //竖着的y轴左面的
-            add(new Wall(0,20*i));
+            new Wall(0,20*i);
             //竖着的y轴右面的
-            add(new Wall(TankFrame.getGameWidth()-Wall.WIDTH,20*i));
+            new Wall(TankFrame.getGameWidth()-Wall.WIDTH,20*i);
             //横着的x轴下面的
-            add(new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT));
+            new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT);
         }
 
         for(int i=0;i<10;i++){
-            add(new Wall(200+ 20*(i+1),300));
-            add(new Wall(200+ 20*(i+1),320));
+            new Wall(200+ 20*(i+1),300);
+            new Wall(200+ 20*(i+1),320);
 
-            add(new Wall(500,300+ 20*(i+1)));
-            add(new Wall(520,300+ 20*(i+1)));
-            add(new Wall(540,300+ 20*(i+1)));
+            new Wall(500,300+ 20*(i+1));
+            new Wall(520,300+ 20*(i+1));
+            new Wall(540,300+ 20*(i+1));
         }
-
-
-
-//        add(tank);
     }
 
     //添加物品

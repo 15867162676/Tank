@@ -40,6 +40,8 @@ public class Bullet extends GameGoods{
         rect.y = y;
         rect.width = WIDTH;
         rect.height = HEIGHT;
+        //把游戏物品添加到游戏模板中
+        GameModel.getInstance().add(this);
     }
 
     //用画笔画子弹
