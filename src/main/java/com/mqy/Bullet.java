@@ -2,6 +2,7 @@ package com.mqy;
 
 import com.mqy.cor.Collider;
 import com.mqy.decorator.TailTankDecorator;
+import com.mqy.flyweight.BulletPool;
 
 import java.awt.*;
 
@@ -30,7 +31,26 @@ public class Bullet extends GameGoods{
     //撞击检测的位置
     public Rectangle rect = new Rectangle();
 
+    public Bullet(){
+        live=false;
+    }
+
     public Bullet(int x, int y, Dir dir, Group group) {
+        this.x = x;
+        this.y = y;
+        this.dir = dir;
+        this.group = group;
+
+        //初始化碰撞检测的rect
+        rect.x = x;
+        rect.y = y;
+        rect.width = WIDTH;
+        rect.height = HEIGHT;
+        //把游戏物品添加到游戏模板中
+        GameModel.getInstance().add(this);
+    }
+
+    public void buildBullet(int x, int y, Dir dir, Group group){
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -109,6 +129,8 @@ public class Bullet extends GameGoods{
     //子弹消失
     public void die() {
         this.live = false;
+        //在子弹池里删除
+        BulletPool.getInstance().remove(this);
     }
 
     public Group getGroup() {

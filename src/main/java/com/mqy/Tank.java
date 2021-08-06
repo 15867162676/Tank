@@ -2,6 +2,7 @@ package com.mqy;
 
 import com.mqy.decorator.TailTankDecorator;
 import com.mqy.decorator.TankDecorator;
+import com.mqy.flyweight.BulletPool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -244,7 +245,8 @@ public class Tank extends GameGoods implements TankDecorator {
         int bX = this.x + (Tank.WIDTH/2) - Bullet.WIDTH/2;
         int bY = this.y + (Tank.HEIGHT/2) - Bullet.HEIGHT/2;
         //子弹的位置和方向和坦克一样
-        new Bullet(bX,bY,this.dir,this.group);
+        BulletPool.getInstance().getBullet().buildBullet(bX,bY,this.dir,this.group);
+//        new Bullet(bX,bY,this.dir,this.group);
     }
 
     public void back(){
