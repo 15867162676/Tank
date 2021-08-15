@@ -38,6 +38,7 @@ public class BulletPool {
 
     //获取子弹
     public Bullet getBullet(){
+//        ClassLoader
         for(Bullet bullet : bulletList){
             if(bullet.isLive()){
                 continue;
@@ -50,6 +51,7 @@ public class BulletPool {
         Bullet bullet = new Bullet();
         bullet.setLive(true);
         bulletList.add(bullet);
+        //输出子弹池中的子弹数量
         System.out.println(bulletList.size());
         return bullet;
     }

@@ -1,13 +1,14 @@
 package com.mqy;
 
 import java.awt.*;
+import java.io.Serializable;
 
 /**
  * @author TF014268
  * @description 游戏物品抽象类
  * @since 2021/8/4 0004 10:21
  */
-public abstract class GameGoods {
+public abstract class GameGoods implements Serializable {
     protected int x,y;
     protected Dir dir;
 

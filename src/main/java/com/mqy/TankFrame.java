@@ -111,6 +111,14 @@ public class TankFrame extends Frame {
                 case KeyEvent.VK_CONTROL:
                     gameModel.tank.fire();  //点击Ctrl键 调用开火方法
                     break;
+                case KeyEvent.VK_S:
+                    //点击S键存档
+                    gameModel.save();
+                    break;
+                case KeyEvent.VK_R:
+                    //点击R键读取
+                    gameModel.read();
+                    break;
                 default:
             }
             //设置坦克的方向

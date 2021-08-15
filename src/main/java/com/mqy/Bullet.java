@@ -32,6 +32,7 @@ public class Bullet extends GameGoods{
     public Rectangle rect = new Rectangle();
 
     public Bullet(){
+        //默认子弹是死亡的
         live=false;
     }
 
@@ -50,7 +51,7 @@ public class Bullet extends GameGoods{
         GameModel.getInstance().add(this);
     }
 
-    public void buildBullet(int x, int y, Dir dir, Group group){
+    public Bullet buildBullet(int x, int y, Dir dir, Group group){
         this.x = x;
         this.y = y;
         this.dir = dir;
@@ -63,6 +64,8 @@ public class Bullet extends GameGoods{
         rect.height = HEIGHT;
         //把游戏物品添加到游戏模板中
         GameModel.getInstance().add(this);
+
+        return this;
     }
 
     //用画笔画子弹

@@ -6,6 +6,7 @@ import com.mqy.flyweight.BulletPool;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Random;
  * @description 坦克类
  * @since 2021/7/27 0027 19:00
  */
-public class Tank extends GameGoods implements TankDecorator {
+public class Tank extends GameGoods implements TankDecorator, Serializable {
 //    //设置坦克的位置
 //    private int x;
 //    private int y;
@@ -48,6 +49,7 @@ public class Tank extends GameGoods implements TankDecorator {
     //坦克的颜色
     private Color tankColor = Color.RED;
 
+    //忽略序列化用transient关键字
     private TankDecorator tankDecorator;
 
     public Tank(int x, int y, Dir dir, Group group) {

@@ -2,6 +2,7 @@ package com.mqy;
 
 import com.mqy.cor.ColliderChain;
 import java.awt.*;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +104,49 @@ public class GameModel {
                 GameGoods g2 = goodsList.get(j);
                 //检测撞击
                 colliderChain.collide(g1,g2);
+            }
+        }
+
+    }
+
+    //游戏存档
+    public void save() {
+        File file = new File("E:\\GitLabMavenWorkSpace\\Tank\\Tank\\gameSave.data");
+        ObjectOutputStream oos = null;
+        try {
+            oos = new ObjectOutputStream(new FileOutputStream(file));
+            oos.writeObject(tank);
+            oos.writeObject(goodsList);
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }finally {
+            if(oos!=null){
+                try {
+                    oos.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+            }
+        }
+    }
+
+    //游戏读取
+    public void read() {
+        File file = new File("E:\\GitLabMavenWorkSpace\\Tank\\Tank\\gameSave.data");
+        ObjectInputStream ois = null;
+        try {
+            ois = new ObjectInputStream(new FileInputStream(file));
+            this.tank = (Tank) ois.readObject();
+            this.goodsList = (List<GameGoods>) ois.readObject();
+        } catch (IOException | ClassNotFoundException ioException) {
+            ioException.printStackTrace();
+        }finally {
+            if(ois!=null){
+                try {
+                    ois.close();
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         }
 
