@@ -3,7 +3,9 @@ import org.junit.Test;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
@@ -292,6 +294,14 @@ public class MyTest22 {
         list1.stream().forEach(System.out::println);
         System.out.println("-----------");
         list2.stream().forEach(System.out::println);
+
+    }
+
+    @Test
+    public void test9(){
+        String format = "yyyy-MM-DDTHH:mm:ss.SSSZ";
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        System.out.println(sdf.format(new Date()));
 
     }
 }
