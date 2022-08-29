@@ -48,7 +48,7 @@ public class GameModel {
             new Tank(x + i*100,y +i*100, Dir.DOWN, Group.BAD);
         }
 
-        //初始化墙体
+        //初始化四周墙体
         for(int i=0;i<60;i++){
             //横着的x轴最上面的
             new Wall(20*i,20);
@@ -60,6 +60,7 @@ public class GameModel {
             new Wall(20*i,TankFrame.getGameHeight()-Wall.HEIGHT);
         }
 
+        //初始化中间的墙体
         for(int i=0;i<10;i++){
             new Wall(200+ 20*(i+1),300);
             new Wall(200+ 20*(i+1),320);
